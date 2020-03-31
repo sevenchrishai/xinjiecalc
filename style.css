@@ -1,0 +1,143 @@
+a{
+    font-size: 80%;
+    color: #03F;
+    text-decoration: none;
+}
+ul li{
+    list-style: none;
+    height: 24px;
+}
+select[disabled]{
+    border: 0;
+    /*清除默认的select选择框样式*/
+    appearance:none;
+    -moz-appearance:none;
+    -webkit-appearance:none;
+}
+.header{
+    font-size: 140%;
+    font-weight: bold;
+    color: #1F4499;
+    padding: 10px;
+}
+.guancangbtns{
+    margin: 0 10px;
+}
+.radioGroup{
+    padding: 0 10px;
+}
+.collection{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.collection div{
+}
+p.title {
+    font-size: 125%;
+    font-weight : 800;
+    color: #284393;
+    background-color: #d9fdfe;
+    text-align: center;
+    padding: 5px;
+}
+p.titleC {
+    font-size: 80%;
+    color: #03F;
+    text-align: center;
+    text-decoration: underline;
+}
+hr{
+    margin: 10px 0 !important;
+}
+hr.fgx {
+    border: 1px dashed #2E9FCC;
+}
+.wb {
+    font-size: 80%;
+}
+.link {
+    color: #03F;
+    text-decoration:none;
+}
+#Label12 {
+    font-size: 200%;
+    text-decoration: none;
+    background-color: #d9fdfe;
+}
+#Label14 {
+    font-size: 200%;
+    text-decoration: none;
+    background-color: #d9fdfe;
+}
+p.bodys {
+    color: #903;
+    text-align: center;
+    font-size: 75%;
+    padding: 2px;
+}
+p.bodysT {
+    color: #66a0d2;
+    font-size: 90%;
+    text-align: center;
+}
+#esay {
+    font-size: 17px;
+}
+#nesay {
+    font-size: 17px;
+}
+#moni {
+    font-size: 17px;
+}
+#dan {
+    font-size: 17px;
+}
+p.bodysC {
+    color: #606;
+    text-align: center;
+}
+
+p.bodysD {
+    color: #C00;
+    text-align: center;
+}
+
+p.bodysF {
+    color: #909;
+    text-align: center;
+}
+#X {
+    width: 75px;
+}
+#modeL {
+    color: #00F;
+    font-size: 90%;
+
+}
+
+p.bodysG {
+    color: #909;
+    text-align: center;
+}
+
+p.bodysA {
+    font-size: 90%;
+    color: #009;
+    text-align: center;
+}
+
+p.end {
+    font-size: 80%;
+    text-align: center;
+    padding: 2px;
+}
+p.t {
+    font-size: 140%;
+    font-weight : 800;
+    color: #1F4499;
+    text-align: center;
+}
+body {
+    background-color: #FFF;
+}
