@@ -17,226 +17,360 @@
     <hr class="fgx">
     <div id="Page1">
         <div class="guancangbtns">
-            <button class="button is-info" @click="collectionFlag = !collectionFlag">{{collectionFlag?'隐藏':'显示'}}馆藏</button>
-            <button class="button is-primary" v-show="collectionFlag" @click="saveCollection">保存</button>
+            <button class="button is-info" @click.prevent="collectionFlag=!collectionFlag;cards=false">
+                {{collectionFlag?'隐藏':'显示'}}馆藏
+            </button>
+            <button class="button is-info" @click.prevent="cards=!cards;collectionFlag=false">{{cards?'关闭':'打开'}}卡牌库
+            </button>
         </div>
-        <div class="collection" v-show="collectionFlag">
-            <div>
-                <div align="center">馆藏：</div>
-                <ul>
-                    <li v-for="item in collection">{{item.name}}:</li>
-                </ul>
-            </div>
-            <div>
-                <div align="center">等级：</div>
-                <ul>
-                    <li v-for="item in collection">
-                        <select v-model="item.level">
-                            <option v-for="count in 8" :value="count-1">{{count-1}}</option>
-                        </select>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <hr class="fgx">
-        <!--<p align="center">-->
-            <!--请选择操作模式：-->
-            <!--<select name="czmode" id="czMode" v-model="czMode">-->
-                <!--<option value="1">手动模式</option>-->
-                <!--<option value="2">竞技场模式</option>-->
-            <!--</select>-->
-            <!--请选择主属性：-->
-            <!--<select id="SX" v-model="mainPropKey" @change="mainPropChange">-->
-                <!--<option v-for="(item,key,index) in mainPropObj" :value="key">{{item}}</option>-->
-            <!--</select>-->
-        <!--</p>-->
-        <div class="radioGroup">
-            请选择操作模式：
-            <label class="radio">
-                <input type="radio" name="czmode" value="1" v-model="czMode">
-                手动模式
-            </label>
-            <label class="radio">
-                <input type="radio" name="czmode" value="2" v-model="czMode">
-                竞技场模式
-            </label>
-        </div>
-        <div class="radioGroup">
-            请选择主属性：
-            <label class="radio" v-for="(item,key,index) in mainPropObj">
-                <input type="radio" name="mainProp" :value="key" v-model="mainPropKey" @change="mainPropChange">
-                {{item}}
-            </label>
-        </div>
-        <p id="YXLabel" style="padding: 0 10px;margin-bottom: 10px">{{mainPropObj[mainPropKey]}}印象总分=
-            <input type="number" id="YXFen" value="0" v-model="mainPropScore"/>
-        </p>
     </div>
-    <div id="Page2" align="center">
-        <p class="title" id="Label1">主属性设计师之影：{{mainPropObj[mainPropKey]}}</p>
-        <p class="bodysC" id="MainC">
-            {{mainPropObj[mainPropKey]}}角色：
-            <select id="Char1" v-model="mainRoleObj.propRoleKey" @change="roleChange">
-                <option v-for="(item,key,index) in propRoleObj" :value="key">{{item}}</option>
-            </select>
-            <input type="checkbox" id="Check1" v-model="mainRoleObj.isFusu"/>复苏
-        </p>
-        <p class="bodysC" id="Label15">
-            等级：
-            <!--<input name="Star1" id="Level1" type="number" max="80" min="1" v-model="roleLevelVal">-->
-            <select name="Star1" id="Level1" v-model="mainRoleObj.roleLevelVal">
-                <option v-for="count in 80" :value="count">{{count}}</option>
-            </select>
-            星级：
-            <select name="Star1" id="Star1" v-model="mainRoleObj.starVal">
-                <option v-for="(item,index) in starArr" :value="index">{{item}}</option>
-            </select>
-            馆藏：
-            <select name="ComboLevel" id="ComboG1" v-model="mainRoleObj.collectVal">
-                <option v-for="count in 8" :value="count-1">{{count-1}}</option>
-            </select>
-        </p>
-        <p class="bodysT" id="GCL1">(图鉴所属：{{makeupData[mainRoleObj.propRoleKey][13]}})</p>
-        <p class="bodysA">—————— 影之召唤 ——————</p>
-        <p class="bodysA">
-            <select name="ComboA" id="Skll1" disabled="disabled" v-model="mainRoleObj.shadowVal">
-                <option v-for="(item,index) in shadowArr" :value="index">{{item}}</option>
-            </select>
-            等级
-            <select name="SkllLevel1" id="SkllLevel1" v-model="mainRoleObj.shadowLevelVal">
-                <option v-for="count in 5" :value="count">{{count}}</option>
-            </select>
-        </p>
-        <p class="bodys">—————— 被动技能 ——————</p>
-        <p class="bodys">1、类型
-            <select name="ComboP1" id="ComboP11" disabled="disabled" v-model="mainRoleObj.passiveSkillVal1">
-                <option v-for="(item,index) in passiveSkillArr" :value="index">{{item}}</option>
-            </select>
-            等级
-            <select name="ComboP1Level" id="ComboP1Level1" v-model="mainRoleObj.passiveSkillLevelVal1">
-                <option v-for="count in 5" :value="count">{{count}}</option>
-            </select>
-        </p>
-        <p class="bodys"> 2、类型
-            <select name="ComboP2" id="ComboP21" disabled="disabled" v-model="mainRoleObj.passiveSkillVal2">
-                <option v-for="(item,index) in passiveSkillArr" :value="index">{{item}}</option>
-            </select>
-            等级
-            <select name="ComboP2Level" id="ComboP2Level1" v-model="mainRoleObj.passiveSkillLevelVal2">
-                <option v-for="count in 5" :value="count">{{count}}</option>
-            </select>
-        </p>
-        <p class="bodys"> 3、类型
-            <select name="ComboP3" id="ComboP31" disabled="disabled" v-model="mainRoleObj.passiveSkillVal3">
-                <option v-for="(item,index) in passiveSkillArr" :value="index">{{item}}</option>
-            </select>
-            等级
-            <select name="ComboP3Level" id="ComboP3Level1" v-model="mainRoleObj.passiveSkillLevelVal3">
-                <option v-for="count in 5" :value="count">{{count}}</option>
-            </select>
-        </p>
-        <p class="end"><span id="modeLL" class="bodys">——————  核心印象  ——————</span></p>
-        <p class="end">
-            <select name="YXRank" id="YXRank1" v-model="mainRoleObj.coreImpressionVal" @change="coreImpressionChange">
-                <option v-for="(item,key,index) in coreImpressionObj" :value="key">{{item}}</option>
-            </select>
-            <select name="YXLevel" id="YXLevel1" v-model="mainRoleObj.coreImpressionLevelVal">
-                <option v-for="(item,key,index) in coreImpressionLevelObj" :value="key">{{item}}</option>
-            </select>
-        </p>
-        <p class="end">
-            <select name="ChoseYX" id="ChoseYX1" v-model="mainRoleObj.coreImpressionTypeVal">
-                <option v-for="(item,key,index) in coreImpressionTypeObj" :value="key">{{item}}</option>
-            </select>
-        <p id="YXFen1" align="center" v-show="false">印象总分：<input type="text" id="YXL1"/></p>
-        </p>
-        <button class="button is-primary" @click="roleSave" style="margin-top: 10px">保存</button>
+    <div class="collection" v-show="collectionFlag">
+        <div class="guancang">
+            <div align="left">馆藏</div>
+            <ul>
+                <li v-for="item in collection">{{item.name}}</li>
+            </ul>
+        </div>
+        <div class="dengji">
+            <div align="left">等级</div>
+            <ul>
+                <li v-for="item in collection">
+                    <select v-model="item.level">
+                        <option v-for="count in 8" :value="count-1">{{count-1}}</option>
+                    </select>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="text-center">
+        <button class="button is-info" v-show="collectionFlag" @click.prevent="saveCollection">保存
+        </button>
+    </div>
+    <!--卡牌库-->
+    <div class="m10" id="kapaiku" v-show="cards">
+        <div class="kapaiku1">
+            <div class="radioGroup2">
+                <span v-for="(item,key,index) in propObj">
+                    <input type="radio" name="kka" :id="'sx'+key" :value="key" v-model="allPropKey"
+                           @change="allPropChange()"/>
+                    <label :for="'sx'+key" :id="'label'+key">{{item}}</label>
+                </span>
+            </div>
+            <div class="bodysB">
+                <div>角色
+                    <select v-model="allRoleObj.propRoleKey" @change="getAllRole">
+                        <option v-for="(item,key,index) in allPropRoleObj" :value="key">{{item}}</option>
+                    </select>
+                </div>
+                <div>
+                    <input type="checkbox" v-model="allRoleObj.isFusu"/>复苏
+                </div>
+            </div>
+            <div class="bodysC">
+                <div style="width: 100px">等级
+                    <select name="Star2" v-model="allRoleObj.roleLevelVal">
+                        <option v-for="count in 80" :value="count">{{count}}</option>
+                    </select>
+                </div>
+                <div>星级
+                    <select name="Star2" v-model="allRoleObj.starVal">
+                        <option v-for="(item,index) in starArr" :value="index">{{item}}</option>
+                    </select>
+                </div>
+                <div class="flexgrow">
+                    馆藏<span>({{makeupData[allRoleObj.propRoleKey][13]}})</span>
+                    <select name="ComboLevel" v-model="allRoleObj.collectVal">
+                        <option v-for="count in 8" :value="count-1">{{count-1}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="bodysC">
+                <div>影之召唤
+                </div>
+                <div class="text-center">
+                    <select name="ComboA" disabled="disabled" v-model="allRoleObj.shadowVal">
+                        <option v-for="(item,index) in shadowArr" :value="index">{{item}}</option>
+                    </select>
+                </div>
+                <div class="text-right">等级
+                    <select name="SkllLevel2" v-model="allRoleObj.shadowLevelVal">
+                        <option v-for="count in 5" :value="count">{{count}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="bodysB">
+                <div>
+                    被动
+                </div>
+                <div class="flexgrow">
+                    <select name="ComboP2" disabled="disabled" v-model="allRoleObj.passiveSkillVal1">
+                        <option v-for="(item,index) in passiveSkillArr" :value="index">{{item}}</option>
+                    </select>
+                    <select name="ComboP1Level" v-model="allRoleObj.passiveSkillLevelVal1">
+                        <option v-for="count in 5" :value="count">{{count}}</option>
+                    </select>
+                </div>
+                <div class="flexgrow">
+                    <select name="ComboP2" disabled="disabled" v-model="allRoleObj.passiveSkillVal2">
+                        <option v-for="(item,index) in passiveSkillArr" :value="index">{{item}}</option>
+                    </select>
+                    <select name="ComboP2Level" v-model="allRoleObj.passiveSkillLevelVal2">
+                        <option v-for="count in 5" :value="count">{{count}}</option>
+                    </select>
+                </div>
+                <div class="flexgrow">
+                    <select name="ComboP3" disabled="disabled" v-model="allRoleObj.passiveSkillVal3">
+                        <option v-for="(item,index) in passiveSkillArr" :value="index">{{item}}</option>
+                    </select>
+                    <select name="ComboP3Level" v-model="allRoleObj.passiveSkillLevelVal3">
+                        <option v-for="count in 5" :value="count">{{count}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="bodysB">
+                <div>
+                    核心印象
+                </div>
+                <div>
+                    <select name="ChoseYX" v-model="allRoleObj.coreImpressionTypeVal">
+                        <option v-for="(item,key,index) in coreImpressionTypeObj" :value="key">{{item}}</option>
+                    </select>
+                    <select name="YXRank" v-model="allRoleObj.coreImpressionVal" @change="allCoreImpressionChange">
+                        <option v-for="(item,key,index) in coreImpressionObj" :value="key">{{item}}</option>
+                    </select>
+                    <select name="YXLevel" v-model="allRoleObj.coreImpressionLevelVal">
+                        <option v-for="(item,key,index) in coreImpressionLevelObj" :value="key">{{item}}</option>
+                    </select>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <p align="center" style="padding: 5px">
+        <button class="button is-info" v-show="cards" @click.prevent="saveCards">保存</button>
+    </p>
+    <hr class="fgx">
+    <div class="radioGroup1">
+        <input type="radio" name="czmode" id="m1" class="mode" value="1" v-model="czMode" checked/>
+        <label for="m1">手动模式</label>
+        <input type="radio" name="czmode" id="m2" class="mode" value="2" v-model="czMode" checked/>
+        <label for="m2">竞技场模式</label>
     </div>
     <hr class="fgx">
-    <div id="Page3" align="center">
-        <p class="title" id="Label2">其他属性的设计师之影</p>
-        <p class="bodysC" id="MainC2">角色：
-            <select id="Char2" v-model="otherRoleObj.otherPropRoleKey" @change="otherRoleChange">
-                <option v-for="(item,key,index) in otherPropRoleObj" :value="key">{{item}}</option>
-            </select>
-            <input type="checkbox" id="Check2" v-model="otherRoleObj.otherIsFusu"/>复苏
+    <!--卡牌1-->
+    <div class="radioGroup-kka1">
+        <strong>卡牌1：</strong>
+        <span v-for="(item,key,index) in propObj">
+            <input type="radio" name="kka1" :id="'sx1'+key" :value="key" v-model="mainPropKey"
+                   @change="mainPropChange()"/>
+            <label :for="'sx1'+key" :id="'label1'+key">{{item}}</label>
+        </span>
+    </div>
+    <div id="Page2" class="m10">
+        <p id="YXLabel" style="padding: 5px 0;color: #606;">{{propObj[mainPropKey]}}印象分=
+            <input type="number" id="YXFen" value="0" v-model="mainPropScore"/>
         </p>
-        <p class="bodysC" id="Label155">
-            等级：
-            <select name="Star2" id="Level2" v-model="otherRoleObj.otherRoleLevelVal">
-                <option v-for="count in 80" :value="count">{{count}}</option>
-            </select>
-            星级：
-            <select name="Star2" id="Star2" v-model="otherRoleObj.otherStarVal">
-                <option v-for="(item,index) in starArr" :value="index">{{item}}</option>
-            </select>
-            馆藏：
-            <select name="ComboLevel" id="ComboG2" v-model="otherRoleObj.otherCollectVal">
-                <option v-for="count in 8" :value="count-1">{{count-1}}</option>
-            </select>
+        <div class="bodysB" id="MainC">
+            <div>
+                角色
+                <select id="Char1" v-model="mainRoleObj.propRoleKey" @change="getMainRole()">
+                    <option v-for="(item,key,index) in mainPropRoleObj" :value="key">{{item}}</option>
+                </select>
+            </div>
+            <div>
+                <input type="checkbox" id="Check1" v-model="mainRoleObj.isFusu"/>复苏
+            </div>
+        </div>
+        <div class="bodysC" id="Label15">
+            <div>
+                等级
+                <select name="Star1" id="Level1" v-model="mainRoleObj.roleLevelVal">
+                    <option v-for="count in 80" :value="count">{{count}}</option>
+                </select>
+            </div>
+            <div>
+                星级
+                <select name="Star1" id="Star1" v-model="mainRoleObj.starVal">
+                    <option v-for="(item,index) in starArr" :value="index">{{item}}</option>
+                </select>
+            </div>
+            <div>
+                馆藏<span>({{makeupData[mainRoleObj.propRoleKey][13]}})</span>
+                <select name="ComboLevel" id="ComboG1" v-model="mainRoleObj.collectVal">
+                    <option v-for="count in 8" :value="count-1">{{count-1}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="bodysC">
+            <div>影之召唤
+            </div>
+            <div class="text-center">
+                <select name="ComboA" disabled="disabled" v-model="mainRoleObj.shadowVal">
+                    <option v-for="(item,index) in shadowArr" :value="index">{{item}}</option>
+                </select>
+            </div>
+            <div class="text-right">等级
+                <select name="SkllLevel2" v-model="mainRoleObj.shadowLevelVal">
+                    <option v-for="count in 5" :value="count">{{count}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="bodysB">
+            <div>被动</div>
+            <div class="flexgrow">
+                <select name="ComboP2" disabled="disabled" v-model="mainRoleObj.passiveSkillVal1">
+                    <option v-for="(item,index) in passiveSkillArr" :value="index">{{item}}</option>
+                </select>
+                <select name="ComboP1Level" v-model="mainRoleObj.passiveSkillLevelVal1">
+                    <option v-for="count in 5" :value="count">{{count}}</option>
+                </select>
+            </div>
+            <div class="flexgrow">
+                <select name="ComboP2" disabled="disabled" v-model="mainRoleObj.passiveSkillVal2">
+                    <option v-for="(item,index) in passiveSkillArr" :value="index">{{item}}</option>
+                </select>
+                <select name="ComboP2Level" v-model="mainRoleObj.passiveSkillLevelVal2">
+                    <option v-for="count in 5" :value="count">{{count}}</option>
+                </select>
+            </div>
+            <div class="flexgrow">
+                <select name="ComboP3" disabled="disabled" v-model="mainRoleObj.passiveSkillVal3">
+                    <option v-for="(item,index) in passiveSkillArr" :value="index">{{item}}</option>
+                </select>
+                <select name="ComboP3Level" v-model="mainRoleObj.passiveSkillLevelVal3">
+                    <option v-for="count in 5" :value="count">{{count}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="bodysB">
+            <div>核心印象
+            </div>
+            <div>
+                <select name="ChoseYX" v-model="mainRoleObj.coreImpressionTypeVal">
+                    <option v-for="(item,key,index) in coreImpressionTypeObj" :value="key">{{item}}</option>
+                </select>
+                <select name="YXRank" v-model="mainRoleObj.coreImpressionVal" @change="mainCoreImpressionChange">
+                    <option v-for="(item,key,index) in coreImpressionObj" :value="key">{{item}}</option>
+                </select>
+                <select name="YXLevel" v-model="mainRoleObj.coreImpressionLevelVal">
+                    <option v-for="(item,key,index) in coreImpressionLevelObj" :value="key">{{item}}</option>
+                </select>
+
+            </div>
+        </div>
+    </div>
+    <hr class="fgx">
+    <!--卡牌2-->
+    <div class="radioGroup-kka2">
+        <strong>卡牌2：</strong>
+        <span v-for="(item,key,index) in propObj">
+            <input type="radio" name="kka2" :id="'sx2'+key" :value="key" v-model="secondPropKey"
+                   @change="secondPropChange()"/>
+            <label :for="'sx2'+key" :id="'label2'+key">{{item}}</label>
+        </span>
+    </div>
+    <div id="Page3" class="m10">
+        <p style="padding: 5px 0;color: #606;">{{propObj[secondPropKey]}}印象分=
+            <input type="number" value="0" v-model="secondPropScore"/>
         </p>
-        <p class="bodysT" id="GCL2">(图鉴所属：{{makeupData[otherRoleObj.otherPropRoleKey][13]}})</p>
-        <p class="bodysA">—————— 影之召唤 ——————</p>
-        <p class="bodysA">
-            <select name="ComboA" id="Skll2" disabled="disabled" v-model="otherRoleObj.otherShadowVal">
-                <option v-for="(item,index) in shadowArr" :value="index">{{item}}</option>
-            </select>
-            等级
-            <select name="SkllLevel2" id="SkllLevel2" v-model="otherRoleObj.otherShadowLevelVal">
-                <option v-for="count in 5" :value="count">{{count}}</option>
-            </select>
-        </p>
-        <p class="bodys">—————— 被动技能 ——————</p>
-        <p class="bodys">1、类型
-            <select name="ComboP2" id="ComboP12" disabled="disabled" v-model="otherRoleObj.passiveSkillVal11">
-                <option v-for="(item,index) in passiveSkillArr" :value="index">{{item}}</option>
-            </select>
-            等级
-            <select name="ComboP1Level" id="ComboP1Level2" v-model="otherRoleObj.passiveSkillLevelVal11">
-                <option v-for="count in 5" :value="count">{{count}}</option>
-            </select>
-        </p>
-        <p class="bodys"> 2、类型
-            <select name="ComboP2" id="ComboP22" disabled="disabled" v-model="otherRoleObj.passiveSkillVal22">
-                <option v-for="(item,index) in passiveSkillArr" :value="index">{{item}}</option>
-            </select>
-            等级
-            <select name="ComboP2Level" id="ComboP2Level2" v-model="otherRoleObj.passiveSkillLevelVal22">
-                <option v-for="count in 5" :value="count">{{count}}</option>
-            </select>
-        </p>
-        <p class="bodys"> 3、类型
-            <select name="ComboP3" id="ComboP32" disabled="disabled" v-model="otherRoleObj.passiveSkillVal33">
-                <option v-for="(item,index) in passiveSkillArr" :value="index">{{item}}</option>
-            </select>
-            等级
-            <select name="ComboP3Level" id="ComboP3Level2" v-model="otherRoleObj.passiveSkillLevelVal33">
-                <option v-for="count in 5" :value="count">{{count}}</option>
-            </select>
-        </p>
-        <p class="end"><span id="modeL" class="bodys">——————  核心印象  ——————</span></p>
-        <p class="end">
-            <select name="YXRank" id="YXRank2" v-model="otherRoleObj.otherCoreImpressionVal" @change="otherCoreImpressionChange">
-                <option v-for="(item,key,index) in coreImpressionObj" :value="key">{{item}}</option>
-            </select>
-            <select name="YXLevel" id="YXLevel2" v-model="otherRoleObj.otherCoreImpressionLevelVal">
-                <option v-for="(item,key,index) in coreImpressionLevelObj" :value="key">{{item}}</option>
-            </select>
-        </p>
-        <p class="end">
-            <select name="ChoseYX" id="ChoseYX2" v-model="otherRoleObj.otherCoreImpressionTypeVal">
-                <option v-for="(item,key,index) in coreImpressionTypeObj" :value="key">{{item}}</option>
-            </select>
-        <p id="YXFen2" align="center" v-show="false">印象总分：<input type="text" id="YXL2"/></p>
-        </p>
-        <button class="button is-primary" @click="otherRoleSave" style="margin-top: 10px">保存</button>
+        <div class="bodysB">
+            <div>
+                角色
+                <select v-model="secondRoleObj.propRoleKey" @change="getSecondRole()">
+                    <option v-for="(item,key,index) in secondPropRoleObj" :value="key">{{item}}</option>
+                </select>
+            </div>
+            <div>
+                <input type="checkbox" v-model="secondRoleObj.isFusu"/>复苏
+            </div>
+        </div>
+        <div class="bodysC">
+            <div>
+                等级
+                <select name="Star1" v-model="secondRoleObj.roleLevelVal">
+                    <option v-for="count in 80" :value="count">{{count}}</option>
+                </select>
+            </div>
+            <div class="text-center">
+                星级
+                <select name="Star1" v-model="secondRoleObj.starVal">
+                    <option v-for="(item,index) in starArr" :value="index">{{item}}</option>
+                </select>
+            </div>
+            <div>
+                馆藏<span>({{makeupData[secondRoleObj.propRoleKey][13]}})</span>
+                <select name="ComboLevel" v-model="secondRoleObj.collectVal">
+                    <option v-for="count in 8" :value="count-1">{{count-1}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="bodysC">
+            <div>影之召唤
+            </div>
+            <div class="text-center">
+                <select name="ComboA" disabled="disabled" v-model="secondRoleObj.shadowVal">
+                    <option v-for="(item,index) in shadowArr" :value="index">{{item}}</option>
+                </select>
+            </div>
+            <div class="text-right">等级
+                <select name="SkllLevel2" v-model="secondRoleObj.shadowLevelVal">
+                    <option v-for="count in 5" :value="count">{{count}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="bodysB">
+            <div>
+                被动
+            </div>
+            <div class="flexgrow">
+                <select name="ComboP2" disabled="disabled" v-model="secondRoleObj.passiveSkillVal1">
+                    <option v-for="(item,index) in passiveSkillArr" :value="index">{{item}}</option>
+                </select>
+                <select name="ComboP1Level" v-model="secondRoleObj.passiveSkillLevelVal1">
+                    <option v-for="count in 5" :value="count">{{count}}</option>
+                </select>
+            </div>
+            <div class="flexgrow">
+                <select name="ComboP2" disabled="disabled" v-model="secondRoleObj.passiveSkillVal2">
+                    <option v-for="(item,index) in passiveSkillArr" :value="index">{{item}}</option>
+                </select>
+                <select name="ComboP2Level" v-model="secondRoleObj.passiveSkillLevelVal2">
+                    <option v-for="count in 5" :value="count">{{count}}</option>
+                </select>
+            </div>
+            <div class="flexgrow">
+                <select name="ComboP3" disabled="disabled" v-model="secondRoleObj.passiveSkillVal3">
+                    <option v-for="(item,index) in passiveSkillArr" :value="index">{{item}}</option>
+                </select>
+                <select name="ComboP3Level" v-model="secondRoleObj.passiveSkillLevelVal3">
+                    <option v-for="count in 5" :value="count">{{count}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="bodysB">
+            <div>核心印象
+            </div>
+            <div>
+                <select name="ChoseYX" v-model="secondRoleObj.coreImpressionTypeVal">
+                    <option v-for="(item,key,index) in coreImpressionTypeObj" :value="key">{{item}}</option>
+                </select>
+                <select name="YXRank" v-model="secondRoleObj.coreImpressionVal" @change="secondCoreImpressionChange">
+                    <option v-for="(item,key,index) in coreImpressionObj" :value="key">{{item}}</option>
+                </select>
+                <select name="YXLevel" v-model="secondRoleObj.coreImpressionLevelVal">
+                    <option v-for="(item,key,index) in coreImpressionLevelObj" :value="key">{{item}}</option>
+                </select>
+
+            </div>
+        </div>
     </div>
     <hr class="fgx">
     <p align="center" id="BUTTONL">
-        <button class="button is-info" @click="compareScore" style="margin: 10px 0">对比</button>
+        <button class="button is-info" @click.prevent="compareScore" style="margin: 10px 0">对比</button>
     </p>
 
-    <div id="Page4" align="center">
+    <div id="Page4" class="m10" align="center">
+        <!--卡牌1-->
         <div align="center">
             <p style="font-size: 120%;font-weight: bold"><{{mainRoleObj.propRoleVal}}></p>
             <p>
@@ -248,32 +382,62 @@
                 {{mainRoleObj.coreImpressionTypeVal==1?"心技印象":"影技印象"}}
             </p>
             <p>
-                搭配之力为{{power}}，印象分为{{mainPropScore}}，得分系数为{{score}}
+                搭配之力为{{mainPower}}，印象分为{{mainPropScore}}，得分系数为{{mainScore}}
             </p>
         </div>
         <hr class="fgx">
+        <!--卡牌2-->
         <div align="center">
-            <p style="font-size: 120%;font-weight: bold"><{{otherRoleObj.otherPropRoleVal}}></p>
+            <p style="font-size: 120%;font-weight: bold"><{{secondRoleObj.propRoleVal}}></p>
             <p>
-                {{otherRoleObj.otherRoleLevelVal}}级{{starArr[otherRoleObj.otherStarVal]}}，主动等级{{otherRoleObj.otherShadowLevelVal}}，被动等级
-                {{otherRoleObj.passiveSkillLevelVal11}}-{{otherRoleObj.passiveSkillLevelVal22}}-{{otherRoleObj.passiveSkillLevelVal33}}，
-                {{otherRoleObj.otherIsFusu?"已":"未"}}复苏，馆藏{{otherRoleObj.otherCollectVal}}级，
-                {{coreImpressionLevelObj[otherRoleObj.otherCoreImpressionLevelVal]}}
-                {{coreImpressionObj[otherRoleObj.otherCoreImpressionVal]}}
-                {{otherRoleObj.otherCoreImpressionTypeVal==1?"心技印象":"影技印象"}}
+                {{secondRoleObj.roleLevelVal}}级{{starArr[secondRoleObj.starVal]}}，主动等级{{secondRoleObj.shadowLevelVal}}，被动等级
+                {{secondRoleObj.passiveSkillLevelVal1}}-{{secondRoleObj.passiveSkillLevelVal2}}-{{secondRoleObj.passiveSkillLevelVal3}}，
+                {{secondRoleObj.isFusu?"已":"未"}}复苏，馆藏{{secondRoleObj.collectVal}}级，
+                {{coreImpressionLevelObj[secondRoleObj.coreImpressionLevelVal]}}
+                {{coreImpressionObj[secondRoleObj.coreImpressionVal]}}
+                {{secondRoleObj.coreImpressionTypeVal==1?"心技印象":"影技印象"}}
             </p>
             <p>
-                搭配之力为{{otherPower}}，得分系数为{{otherScore}}
+                搭配之力为{{secondPower}}，印象分为{{secondPropScore}}，得分系数为{{secondScore}}
             </p>
         </div>
         <hr class="fgx">
-        <div v-if="(power + mainPropScore) > otherPower && score > otherScore">
-            结论：{{mainRoleObj.propRoleVal}}的搭配之力和得分系数均超过{{otherRoleObj.otherPropRoleVal}}，
+        <div v-if="(mainPower+mainPropScore) > (secondPower+secondPropScore) && mainScore > secondScore">
+            结论：{{mainRoleObj.propRoleVal}}的搭配之力和得分系数均超过{{secondRoleObj.propRoleVal}}，
             所以选择使用{{mainRoleObj.propRoleVal}}
         </div>
-        <div v-if="(power + mainPropScore) > otherPower && score < otherScore">
-            结论：当你的搭配+羁绊+美甲+妆容>{{Math.floor((otherScore * otherPower - score * (power + mainPropScore)) / (score - otherScore))}}时，
-            选择使用{{otherRoleObj.otherPropRoleVal}}得分会更高；否则使用{{mainRoleObj.propRoleVal}}的得分会更高
+        <div v-if="(mainPower+mainPropScore) < (secondPower+secondPropScore) && mainScore < secondScore">
+            结论：{{mainRoleObj.propRoleVal}}的搭配之力和得分系数均小于{{secondRoleObj.propRoleVal}}，
+            所以选择使用{{secondRoleObj.propRoleVal}}
+        </div>
+        <div v-if="(mainPower+mainPropScore) > (secondPower+secondPropScore) && mainScore < secondScore">
+            结论：{{compareResult>0?
+            '当你的搭配+羁绊+美甲+妆容>' + compareResult + '时,选择使用'+ secondRoleObj.propRoleVal + '得分会更高；否则使用'+
+            mainRoleObj.propRoleVal+ '的得分会更高。'
+            :'无论什么情况，都是'+secondRoleObj.propRoleVal+'的得分会更高。'}}
+        </div>
+        <div v-if="(mainPower+mainPropScore) < (secondPower+secondPropScore) && mainScore > secondScore">
+            结论：{{compareResult>0?
+            '当你的搭配+羁绊+美甲+妆容>' + compareResult + '时,选择使用'+ mainRoleObj.propRoleVal + '得分会更高；否则使用'+
+            secondRoleObj.propRoleVal+ '的得分会更高。'
+            :'无论什么情况，都是'+mainRoleObj.propRoleVal+'的得分会更高。'}}
+        </div>
+        <div v-if="(mainPower+mainPropScore) > (secondPower+secondPropScore) && mainScore == secondScore">
+            结论：{{mainRoleObj.propRoleVal}}和{{secondRoleObj.propRoleVal}}的得分系数相同，但选择使用
+            {{mainRoleObj.propRoleVal}}，因为它的搭配之力分数更高。
+        </div>
+        <div v-if="(mainPower+mainPropScore) < (secondPower+secondPropScore) && mainScore == secondScore">
+            结论：{{mainRoleObj.propRoleVal}}和{{secondRoleObj.propRoleVal}}的得分系数相同，但选择使用
+            {{secondRoleObj.propRoleVal}}，因为它的搭配之力分数更高。
+        </div>
+        <div v-if="(mainPower+mainPropScore) == (secondPower+secondPropScore) && mainScore > secondScore">
+            结论：{{mainRoleObj.propRoleVal}}的得分系数更高，所以选择使用{{mainRoleObj.propRoleVal}}
+        </div>
+        <div v-if="(mainPower+mainPropScore) == (secondPower+secondPropScore) && mainScore < secondScore">
+            结论：{{secondRoleObj.propRoleVal}}的得分系数更高，所以选择使用{{secondRoleObj.propRoleVal}}
+        </div>
+        <div v-if="(mainPower+mainPropScore) == (secondPower+secondPropScore) && mainScore == secondScore">
+            结论：{{mainRoleObj.propRoleVal}}和{{secondRoleObj.propRoleVal}}是完全相同的两张卡。
         </div>
         <hr class="fgx">
 
@@ -282,7 +446,7 @@
 </div>
 
 
-<!--<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>-->
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdn.bootcss.com/vue/2.6.11/vue.min.js"></script>
 <script src="calc.js"></script>
 </body>

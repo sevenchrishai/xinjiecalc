@@ -1,101 +1,241 @@
-a{
+a {
     font-size: 80%;
     color: #03F;
     text-decoration: none;
 }
-ul li{
+
+ul li {
     list-style: none;
     height: 24px;
 }
-select[disabled]{
+/*}*/
+select[disabled] {
     border: 0;
     /*清除默认的select选择框样式*/
-    appearance:none;
-    -moz-appearance:none;
-    -webkit-appearance:none;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    color: orange;
+    text-align: center;
+    font-size: 14px;
+    /*width: 100%;*/
 }
-.header{
+.text-center{
+    text-align: center;
+}
+.text-right{
+    text-align: right;
+}
+.m10{
+    margin: 0 10px;
+}
+.header {
     font-size: 140%;
     font-weight: bold;
     color: #1F4499;
     padding: 10px;
 }
-.guancangbtns{
+
+.guancangbtns {
+    text-align: center;
     margin: 0 10px;
 }
-.radioGroup{
-    padding: 0 10px;
+
+.radioGroup1 {
+    text-align: center;
 }
-.collection{
+
+.radioGroup1 input[type="radio"] {
+    display: none;
+}
+
+.radioGroup1 label {
+    display: inline-block;
+    background-color: #cccccc;
+    padding: 7px 35px;
+    font-family: Arial;
+    font-size: 16px;
+    cursor: pointer;
+    color: white;
+    margin: 5px;
+    border-radius: 4px;
+}
+.radioGroup1 input[type="radio"]:checked + label {
+    background-color: #3298dc;
+}
+.collection {
+    padding-left: 10px;
     display: flex;
     justify-content: center;
-    align-items: center;
-}
-.collection div{
-}
-p.title {
-    font-size: 125%;
-    font-weight : 800;
-    color: #284393;
-    background-color: #d9fdfe;
     text-align: center;
-    padding: 5px;
 }
-p.titleC {
-    font-size: 80%;
-    color: #03F;
+.guancang {
+    text-align-last: justify;
+    text-align: justify;
+    text-justify: distribute-all-lines;
+    width: 100px; /*这行必加，兼容ie浏览器*/
+}
+.dengji {
+    padding-left: 50px;
+}
+
+.kapaiku {
+    margin: 10px;
+}
+
+.radioGroup2 {
     text-align: center;
-    text-decoration: underline;
 }
-hr{
-    margin: 10px 0 !important;
+
+.radioGroup2 input[type="radio"] {
+    display: none;
 }
+
+.radioGroup2 label {
+    display: inline-block;
+    background-color: #cccccc;
+    padding: 7px 7px;
+    font-family: Arial;
+    font-size: 16px;
+    cursor: pointer;
+    color: white;
+    margin: 5px;
+    border-radius: 4px;
+}
+
+.radioGroup2 input[type="radio"]:checked + label#label1 {
+    background-color: #f4c534;
+}
+
+.radioGroup2 input[type="radio"]:checked + label#label2 {
+    background-color: #5addad;
+}
+
+.radioGroup2 input[type="radio"]:checked + label#label3 {
+    background-color: #fea1af;
+}
+
+.radioGroup2 input[type="radio"]:checked + label#label4 {
+    background-color: #c05ff5;
+}
+
+.radioGroup2 input[type="radio"]:checked + label#label5 {
+    background-color: #7198f5;
+}
+
+.radioGroup-kka1 {
+    text-align: center;
+}
+
+.radioGroup-kka1 input[type="radio"] {
+    display: none;
+}
+
+.radioGroup-kka1 label {
+    display: inline-block;
+    background-color: #cccccc;
+    padding: 7px 7px;
+    font-family: Arial;
+    font-size: 16px;
+    cursor: pointer;
+    color: white;
+    margin: 5px;
+    border-radius: 4px;
+}
+
+.radioGroup-kka1 input[type="radio"]:checked + label#label11 {
+    background-color: #f4c534;
+}
+
+.radioGroup-kka1 input[type="radio"]:checked + label#label12 {
+    background-color: #5addad;
+}
+
+.radioGroup-kka1 input[type="radio"]:checked + label#label13 {
+    background-color: #fea1af;
+}
+
+.radioGroup-kka1 input[type="radio"]:checked + label#label14 {
+    background-color: #c05ff5;
+}
+
+.radioGroup-kka1 input[type="radio"]:checked + label#label15 {
+    background-color: #7198f5;
+}
+
+.radioGroup-kka2 {
+    text-align: center;
+}
+
+.radioGroup-kka2 input[type="radio"] {
+    display: none;
+}
+
+.radioGroup-kka2 label {
+    display: inline-block;
+    background-color: #cccccc;
+    padding: 7px 7px;
+    font-family: Arial;
+    font-size: 16px;
+    cursor: pointer;
+    color: white;
+    margin: 5px;
+    border-radius: 4px;
+}
+
+.radioGroup-kka2 input[type="radio"]:checked + label#label21 {
+    background-color: #f4c534;
+}
+
+.radioGroup-kka2 input[type="radio"]:checked + label#label22 {
+    background-color: #5addad;
+}
+
+.radioGroup-kka2 input[type="radio"]:checked + label#label23 {
+    background-color: #fea1af;
+}
+
+.radioGroup-kka2 input[type="radio"]:checked + label#label24 {
+    background-color: #c05ff5;
+}
+
+.radioGroup-kka2 input[type="radio"]:checked + label#label25 {
+    background-color: #7198f5;
+}
+hr {
+    margin: 5px 0 !important;
+}
+
 hr.fgx {
-    border: 1px dashed #2E9FCC;
+    height: 1px !important;
+    background-color: cornflowerblue;
 }
-.wb {
-    font-size: 80%;
-}
-.link {
-    color: #03F;
-    text-decoration:none;
-}
-#Label12 {
-    font-size: 200%;
-    text-decoration: none;
-    background-color: #d9fdfe;
-}
-#Label14 {
-    font-size: 200%;
-    text-decoration: none;
-    background-color: #d9fdfe;
-}
-p.bodys {
-    color: #903;
-    text-align: center;
-    font-size: 75%;
-    padding: 2px;
-}
-p.bodysT {
-    color: #66a0d2;
-    font-size: 90%;
-    text-align: center;
-}
-#esay {
-    font-size: 17px;
-}
-#nesay {
-    font-size: 17px;
-}
-#moni {
-    font-size: 17px;
-}
-#dan {
-    font-size: 17px;
-}
-p.bodysC {
+
+.bodysB {
     color: #606;
-    text-align: center;
+    display: flex;
+    justify-content: space-between;
+}
+
+.bodysB .flexgrow{
+    flex-grow: 1;
+}
+.bodysC .flexgrow{
+    flex-grow: 1;
+}
+.bodysC {
+    color: #606;
+    padding: 5px 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.bodysC div {
+    width: 33.33%;
+}
+
+.bodysC span {
+    color: lightskyblue;
 }
 
 p.bodysD {
@@ -107,9 +247,11 @@ p.bodysF {
     color: #909;
     text-align: center;
 }
+
 #X {
     width: 75px;
 }
+
 #modeL {
     color: #00F;
     font-size: 90%;
@@ -132,12 +274,14 @@ p.end {
     text-align: center;
     padding: 2px;
 }
+
 p.t {
     font-size: 140%;
-    font-weight : 800;
+    font-weight: 800;
     color: #1F4499;
     text-align: center;
 }
+
 body {
     background-color: #FFF;
 }
