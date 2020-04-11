@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>心阶对比计算器</title>
+    <title>卡牌对比计算器-国服</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
 </head>
@@ -105,7 +105,7 @@
                 <div>
                     被动
                 </div>
-                <div class="flexgrow">
+                <div>
                     <select name="ComboP2" disabled="disabled" v-model="allRoleObj.passiveSkillVal1">
                         <option v-for="(item,index) in passiveSkillArr" :value="index">{{item}}</option>
                     </select>
@@ -113,7 +113,7 @@
                         <option v-for="count in 5" :value="count">{{count}}</option>
                     </select>
                 </div>
-                <div class="flexgrow">
+                <div>
                     <select name="ComboP2" disabled="disabled" v-model="allRoleObj.passiveSkillVal2">
                         <option v-for="(item,index) in passiveSkillArr" :value="index">{{item}}</option>
                     </select>
@@ -121,7 +121,7 @@
                         <option v-for="count in 5" :value="count">{{count}}</option>
                     </select>
                 </div>
-                <div class="flexgrow">
+                <div>
                     <select name="ComboP3" disabled="disabled" v-model="allRoleObj.passiveSkillVal3">
                         <option v-for="(item,index) in passiveSkillArr" :value="index">{{item}}</option>
                     </select>
@@ -220,7 +220,7 @@
         </div>
         <div class="bodysB">
             <div>被动</div>
-            <div class="flexgrow">
+            <div>
                 <select name="ComboP2" disabled="disabled" v-model="mainRoleObj.passiveSkillVal1">
                     <option v-for="(item,index) in passiveSkillArr" :value="index">{{item}}</option>
                 </select>
@@ -228,7 +228,7 @@
                     <option v-for="count in 5" :value="count">{{count}}</option>
                 </select>
             </div>
-            <div class="flexgrow">
+            <div>
                 <select name="ComboP2" disabled="disabled" v-model="mainRoleObj.passiveSkillVal2">
                     <option v-for="(item,index) in passiveSkillArr" :value="index">{{item}}</option>
                 </select>
@@ -236,7 +236,7 @@
                     <option v-for="count in 5" :value="count">{{count}}</option>
                 </select>
             </div>
-            <div class="flexgrow">
+            <div>
                 <select name="ComboP3" disabled="disabled" v-model="mainRoleObj.passiveSkillVal3">
                     <option v-for="(item,index) in passiveSkillArr" :value="index">{{item}}</option>
                 </select>
@@ -325,7 +325,7 @@
             <div>
                 被动
             </div>
-            <div class="flexgrow">
+            <div>
                 <select name="ComboP2" disabled="disabled" v-model="secondRoleObj.passiveSkillVal1">
                     <option v-for="(item,index) in passiveSkillArr" :value="index">{{item}}</option>
                 </select>
@@ -333,7 +333,7 @@
                     <option v-for="count in 5" :value="count">{{count}}</option>
                 </select>
             </div>
-            <div class="flexgrow">
+            <div>
                 <select name="ComboP2" disabled="disabled" v-model="secondRoleObj.passiveSkillVal2">
                     <option v-for="(item,index) in passiveSkillArr" :value="index">{{item}}</option>
                 </select>
@@ -341,7 +341,7 @@
                     <option v-for="count in 5" :value="count">{{count}}</option>
                 </select>
             </div>
-            <div class="flexgrow">
+            <div>
                 <select name="ComboP3" disabled="disabled" v-model="secondRoleObj.passiveSkillVal3">
                     <option v-for="(item,index) in passiveSkillArr" :value="index">{{item}}</option>
                 </select>

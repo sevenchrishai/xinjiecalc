@@ -17,7 +17,7 @@ select[disabled] {
     -webkit-appearance: none;
     color: orange;
     text-align: center;
-    font-size: 14px;
+    font-size: 1em;
     /*width: 100%;*/
 }
 .text-center{
