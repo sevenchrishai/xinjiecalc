@@ -18,6 +18,9 @@ select[disabled] {
     color: orange;
     text-align: center;
     font-size: 1em;
+    padding: 0 0.0001%;
+    margin: 0;
+    text-align-last: center;
     /*width: 100%;*/
 }
 .text-center{
@@ -211,18 +214,6 @@ hr.fgx {
     background-color: cornflowerblue;
 }
 
-.bodysB {
-    color: #606;
-    display: flex;
-    justify-content: space-between;
-}
-
-.bodysB .flexgrow{
-    flex-grow: 1;
-}
-.bodysB span {
-    color: lightskyblue;
-}
 .bodysC .flexgrow{
     flex-grow: 1;
 }
@@ -232,11 +223,6 @@ hr.fgx {
     display: flex;
     justify-content: space-between;
 }
-
-.bodysC div {
-    width: 33.33%;
-}
-
 .bodysC span {
     color: lightskyblue;
 }

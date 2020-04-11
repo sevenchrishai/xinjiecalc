@@ -56,7 +56,7 @@
                     <label :for="'sx'+key" :id="'label'+key">{{item}}</label>
                 </span>
             </div>
-            <div class="bodysB">
+            <div class="bodysC">
                 <div>角色
                     <select v-model="allRoleObj.propRoleKey" @change="getAllRole">
                         <option v-for="(item,key,index) in allPropRoleObj" :value="key">{{item}}</option>
@@ -80,7 +80,7 @@
                         <option v-for="(item,index) in starArr" :value="index">{{item}}</option>
                     </select>
                 </div>
-                <div class="text-right">
+                <div>
                     馆藏
                     <select name="ComboLevel" v-model="allRoleObj.collectVal">
                         <option v-for="count in 8" :value="count-1">{{count-1}}</option>
@@ -90,18 +90,18 @@
             <div class="bodysC">
                 <div>影之召唤
                 </div>
-                <div class="text-center">
+                <div>
                     <select name="ComboA" disabled="disabled" v-model="allRoleObj.shadowVal">
                         <option v-for="(item,index) in shadowArr" :value="index">{{item}}</option>
                     </select>
                 </div>
-                <div class="text-right">等级
+                <div>等级
                     <select name="SkllLevel2" v-model="allRoleObj.shadowLevelVal">
                         <option v-for="count in 5" :value="count">{{count}}</option>
                     </select>
                 </div>
             </div>
-            <div class="bodysB">
+            <div class="bodysC">
                 <div>
                     被动
                 </div>
@@ -130,7 +130,7 @@
                     </select>
                 </div>
             </div>
-            <div class="bodysB">
+            <div class="bodysC">
                 <div>
                     核心印象
                 </div>
@@ -171,9 +171,9 @@
     </div>
     <div id="Page2" class="m10">
         <p id="YXLabel" style="padding: 5px 0;color: #606;">{{propObj[mainPropKey]}}印象分=
-            <input type="number" id="YXFen" value="0" v-model="mainPropScore"/>
+            <input type="number" id="YXFen" value="0" v-model="mainPropScore" style="width: 42px"/>
         </p>
-        <div class="bodysB" id="MainC">
+        <div class="bodysC" id="MainC">
             <div>
                 角色
                 <select id="Char1" v-model="mainRoleObj.propRoleKey" @change="getMainRole()">
@@ -182,6 +182,9 @@
             </div>
             <div>
                 <input type="checkbox" id="Check1" v-model="mainRoleObj.isFusu"/>复苏
+            </div>
+            <div>
+                <span>({{makeupData[mainRoleObj.propRoleKey][13]}})</span>
             </div>
         </div>
         <div class="bodysC" id="Label15">
@@ -198,7 +201,7 @@
                 </select>
             </div>
             <div>
-                馆藏<span>({{makeupData[mainRoleObj.propRoleKey][13]}})</span>
+                馆藏
                 <select name="ComboLevel" id="ComboG1" v-model="mainRoleObj.collectVal">
                     <option v-for="count in 8" :value="count-1">{{count-1}}</option>
                 </select>
@@ -207,7 +210,7 @@
         <div class="bodysC">
             <div>影之召唤
             </div>
-            <div class="text-center">
+            <div>
                 <select name="ComboA" disabled="disabled" v-model="mainRoleObj.shadowVal">
                     <option v-for="(item,index) in shadowArr" :value="index">{{item}}</option>
                 </select>
@@ -218,7 +221,7 @@
                 </select>
             </div>
         </div>
-        <div class="bodysB">
+        <div class="bodysC">
             <div>被动</div>
             <div>
                 <select name="ComboP2" disabled="disabled" v-model="mainRoleObj.passiveSkillVal1">
@@ -245,7 +248,7 @@
                 </select>
             </div>
         </div>
-        <div class="bodysB">
+        <div class="bodysC">
             <div>核心印象
             </div>
             <div>
@@ -274,9 +277,9 @@
     </div>
     <div id="Page3" class="m10">
         <p style="padding: 5px 0;color: #606;">{{propObj[secondPropKey]}}印象分=
-            <input type="number" value="0" v-model="secondPropScore"/>
+            <input type="number" value="0" v-model="secondPropScore" style="width: 42px"/>
         </p>
-        <div class="bodysB">
+        <div class="bodysC">
             <div>
                 角色
                 <select v-model="secondRoleObj.propRoleKey" @change="getSecondRole()">
@@ -286,6 +289,9 @@
             <div>
                 <input type="checkbox" v-model="secondRoleObj.isFusu"/>复苏
             </div>
+            <div>
+                <span>({{makeupData[secondRoleObj.propRoleKey][13]}})</span>
+            </div>
         </div>
         <div class="bodysC">
             <div>
@@ -294,14 +300,14 @@
                     <option v-for="count in 80" :value="count">{{count}}</option>
                 </select>
             </div>
-            <div class="text-center">
+            <div>
                 星级
                 <select name="Star1" v-model="secondRoleObj.starVal">
                     <option v-for="(item,index) in starArr" :value="index">{{item}}</option>
                 </select>
             </div>
             <div>
-                馆藏<span>({{makeupData[secondRoleObj.propRoleKey][13]}})</span>
+                馆藏
                 <select name="ComboLevel" v-model="secondRoleObj.collectVal">
                     <option v-for="count in 8" :value="count-1">{{count-1}}</option>
                 </select>
@@ -310,7 +316,7 @@
         <div class="bodysC">
             <div>影之召唤
             </div>
-            <div class="text-center">
+            <div>
                 <select name="ComboA" disabled="disabled" v-model="secondRoleObj.shadowVal">
                     <option v-for="(item,index) in shadowArr" :value="index">{{item}}</option>
                 </select>
@@ -321,7 +327,7 @@
                 </select>
             </div>
         </div>
-        <div class="bodysB">
+        <div class="bodysC">
             <div>
                 被动
             </div>
@@ -350,7 +356,7 @@
                 </select>
             </div>
         </div>
-        <div class="bodysB">
+        <div class="bodysC">
             <div>核心印象
             </div>
             <div>
