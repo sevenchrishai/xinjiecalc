@@ -1077,4 +1077,1085 @@
 
 </script>
 </body>
+=======
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <title>心阶对比计算器</title>
+    <script src="sss.js"></script>
+    <link href="style.css" rel="stylesheet" type="text/css"/>
+    <style>
+        button {
+            font-size: 20px
+
+        }
+    </style>
+</head>
+<body>
+<p class="t" id="TTTL">心阶对比计算器</p>
+<p align="center" class="wb"><a class="link" href="https://www.weibo.com/u/6573931053">@山药攻略组<img src="logo.jpg"
+                                                                                                  width="40"
+                                                                                                  height="40"/></a></p>
+<hr class="fgx"/>
+<div id="Page1" style="display:none;">
+    <p align="center">请选择主属性： <select id="SX"
+                                      onchange="document.getElementById('YXLabel').innerHTML=SXtext[document.getElementById('SX').value-1]+ihtml">
+        <option value="1">典雅</option>
+        <option value="2">清新</option>
+        <option value="3">甜美</option>
+        <option value="4">性感</option>
+        <option value="5">帅气</option>
+    </select></p>
+    <p align="center" id="YXLabel">典雅印象总分=<input type="text" id="YXFen" value="0"/></p>
+</div>
+<div id="Page2" align="center" style="display:none;">
+    <p class="title" id="Label1"> 主属性设计师之影</p>
+    <p class="bodysC" id="MainC">角色：<select id="Char1" onchange="Character(1)"></select><input type="checkbox"
+                                                                                               id="Check1"/>复苏</p>
+    <p class="bodysC" id="Label15">等级： <select name="Star1" id="Level1" onchange="levelchange(1)"> </select> 星级： <select
+            name="Star1" id="Star1"> </select> 馆藏： <select name="ComboLevel" id="ComboG1">
+        <option value="0" selected="selected">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+    </select></p>
+    <p class="bodysT" id="GCL1">(图鉴所属：千羽森林)</p>
+    <p class="bodysA">—————— 影之召唤 ——————</p>
+    <p class="bodysA"><select name="ComboA" id="Skll1" disabled="disabled">
+        <option value="1" selected="selected">闪耀瞬间得分提升</option>
+        <option value="2">某个环节使用额外得分</option>
+        <option value="3">10秒内心之技能得分提升</option>
+        <option value="4">20秒内心之技能得分提升</option>
+        <option value="5">额外闪耀瞬间</option>
+        <option value="6">功能卡</option>
+    </select> 等级 <select name="SkllLevel1" id="SkllLevel1">
+        <option value="1" selected="selected">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+    </select></p>
+    <p class="bodys">—————— 被动技能 ——————</p>
+    <p class="bodys">1、类型 <select name="ComboP1" id="ComboP11" disabled="disabled">
+        <option value="0" selected="selected">无</option>
+        <option value="1">完美发型</option>
+        <option value="2">气场全开</option>
+        <option value="3">轻盈脚步</option>
+        <option value="4">闪闪惹人爱</option>
+    </select> 等级 <select name="ComboP1Level" id="ComboP1Level1">
+        <option value="0">0</option>
+        <option value="1" selected="selected">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+    </select></p>
+    <p class="bodys"> 2、类型 <select name="ComboP2" id="ComboP21" disabled="disabled">
+        <option value="0" selected="selected">无</option>
+        <option value="1">完美发型</option>
+        <option value="2">气场全开</option>
+        <option value="3">轻盈脚步</option>
+        <option value="4">闪闪惹人爱</option>
+    </select> 等级 <select name="ComboP2Level" id="ComboP2Level1">
+        <option value="0">0</option>
+        <option value="1" selected="selected">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+    </select></p>
+    <p class="bodys"> 3、类型 <select name="ComboP3" id="ComboP31" disabled="disabled">
+        <option value="0" selected="selected">无</option>
+        <option value="1">完美发型</option>
+        <option value="2">气场全开</option>
+        <option value="3">轻盈脚步</option>
+        <option value="4">闪闪惹人爱</option>
+    </select> 等级 <select name="ComboP3Level" id="ComboP3Level1">
+        <option value="0">0</option>
+        <option value="1" selected="selected">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+    </select></p>
+    <p class="end"><span id="modeL" class="bodys">—————— 核心印象 ——————</span></p>
+    <p class="end"><select name="YXRank" id="YXRank1"
+                           onchange="if(document.getElementById('YXRank1').value==5){document.getElementById('ChoseYX1').options[0].selected=true}">
+        <option value="1">普通</option>
+        <option value="2" selected="selected">稀有</option>
+        <option value="3">非凡</option>
+        <option value="5">非凡-初心之愿</option>
+        <option value="4">闪耀</option>
+    </select> <select name="YXLevel" id="YXLevel1">
+        <option value="1">深化1花</option>
+        <option value="2">深化2花</option>
+        <option value="3">深化3花</option>
+        <option value="4">深化4花</option>
+        <option value="5" selected="selected">深化5花</option>
+    </select></p>
+    <p class="end"><select name="ChoseYX" id="ChoseYX1">
+        <option value="1">核心印象：提供心之技能分数</option>
+        <option value="2">核心印象：提供影之召唤分数</option>
+    </select></p>
+    <p id="YXFen1" align="center">印象总分：<input type="text" id="YXL1"/></p>
+    <p></p>
+</div>
+<div id="Page3" align="center" style="display:none;">
+    <p class="title" id="Label2"> 其他属性的设计师之影</p>
+    <p class="bodysC" id="MainC2">角色：<select id="Char2" onchange="Character(2)"></select><input type="checkbox"
+                                                                                                id="Check2"/>复苏</p>
+    <p class="bodysC" id="Label15">等级： <select name="Star2" id="Level2" onchange="levelchange(1)"> </select> 星级： <select
+            name="Star2" id="Star2"> </select> 馆藏： <select name="ComboLevel" id="ComboG2">
+        <option value="0" selected="selected">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+    </select></p>
+    <p class="bodysT" id="GCL2">(图鉴所属：千羽森林)</p>
+    <p class="bodysA">—————— 影之召唤 ——————</p>
+    <p class="bodysA"><select name="ComboA" id="Skll2" disabled="disabled">
+        <option value="1" selected="selected">闪耀瞬间得分提升</option>
+        <option value="2">某个环节使用额外得分</option>
+        <option value="3">10秒内心之技能得分提升</option>
+        <option value="4">20秒内心之技能得分提升</option>
+        <option value="5">额外闪耀瞬间</option>
+        <option value="6">功能卡</option>
+    </select> 等级 <select name="SkllLevel2" id="SkllLevel2">
+        <option value="1" selected="selected">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+    </select></p>
+    <p class="bodys">—————— 被动技能 ——————</p>
+    <p class="bodys">1、类型 <select name="ComboP2" id="ComboP12" disabled="disabled">
+        <option value="0" selected="selected">无</option>
+        <option value="1">完美发型</option>
+        <option value="2">气场全开</option>
+        <option value="3">轻盈脚步</option>
+        <option value="4">闪闪惹人爱</option>
+    </select> 等级 <select name="ComboP1Level" id="ComboP1Level2">
+        <option value="0">0</option>
+        <option value="1" selected="selected">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+    </select></p>
+    <p class="bodys"> 2、类型 <select name="ComboP2" id="ComboP22" disabled="disabled">
+        <option value="0" selected="selected">无</option>
+        <option value="1">完美发型</option>
+        <option value="2">气场全开</option>
+        <option value="3">轻盈脚步</option>
+        <option value="4">闪闪惹人爱</option>
+    </select> 等级 <select name="ComboP2Level" id="ComboP2Level2">
+        <option value="0">0</option>
+        <option value="1" selected="selected">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+    </select></p>
+    <p class="bodys"> 3、类型 <select name="ComboP3" id="ComboP32" disabled="disabled">
+        <option value="0" selected="selected">无</option>
+        <option value="1">完美发型</option>
+        <option value="2">气场全开</option>
+        <option value="3">轻盈脚步</option>
+        <option value="4">闪闪惹人爱</option>
+    </select> 等级 <select name="ComboP3Level" id="ComboP3Level2">
+        <option value="0">0</option>
+        <option value="1" selected="selected">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+    </select></p>
+    <p class="end"><span id="modeL" class="bodys">—————— 核心印象 ——————</span></p>
+    <p class="end"><select name="YXRank" id="YXRank2"
+                           onchange="if(document.getElementById('YXRank2').value==5){document.getElementById('ChoseYX2').options[0].selected=true}">
+        <option value="1">普通</option>
+        <option value="2" selected="selected">稀有</option>
+        <option value="3">非凡</option>
+        <option value="5">非凡-初心之愿</option>
+        <option value="4">闪耀</option>
+    </select> <select name="YXLevel" id="YXLevel2">
+        <option value="1">深化1花</option>
+        <option value="2">深化2花</option>
+        <option value="3">深化3花</option>
+        <option value="4">深化4花</option>
+        <option value="5" selected="selected">深化5花</option>
+    </select></p>
+    <p class="end"><select name="ChoseYX" id="ChoseYX2">
+        <option value="1">核心印象：提供心之技能分数</option>
+        <option value="2">核心印象：提供影之召唤分数</option>
+    </select></p>
+    <p id="YXFen2" align="center">印象总分：<input type="text" id="YXL2"/></p>
+    <p></p>
+</div>
+<div id="Page4" align="center">
+</div>
+<p align="center" id="BUTTONL">
+    <button onclick="Page2()">下一步</button>
+</p>
+<script>
+    var ihtml = '印象总分=<input type="text" id="YXFen"  value="0"/>'
+    var SXtext = ['典雅', '清新', '甜美', '性感', '帅气']
+    var temppp = document.getElementById('MainC').innerHTML
+    var MainSX, MainYXFen, CM, CZMode, tempB
+
+    window.onload = function () {
+        CM = parseInt((window.location + '=').split('=')[1][0]);
+        switch (CM) {
+            case 1:
+                Page1C();
+                document.getElementById("Label1").innerHTML = "设计师之影A"
+                document.getElementById("Label2").innerHTML = "设计师之影B"
+                document.getElementById("TTTL").innerHTML = '设计师之影对比'
+                document.getElementsByTagName("title")[0].innerText = '设计师之影对比';
+                break;
+            case 2:
+                Page2();
+                document.getElementById("Label1").innerHTML = "单卡计算分数"
+                document.getElementById("Label15").style.display = "none";
+                document.getElementById("YXFen1").innerHTML = '<p align="center">请选择操作模式： <select id="CZMode"><option value="1">手动模式</option><option value="2">竞技场模式</option></select></p>总搭配之力：<input type="text" id="YXL1" />'
+                document.getElementById("BUTTONL").innerHTML = "<button onclick='Page4B()' >计算结果</button> <button onclick='window.location.href=\"index.html\"'>返回首页</button>"
+                document.getElementById("TTTL").innerHTML = '单卡计算分数'
+                document.getElementsByTagName("title")[0].innerText = '单卡计算分数';
+                tempB = 0
+                break;
+            case 3:
+                alert(3);
+                break;
+            case 4:
+                document.getElementById("Page1").style.display = "inline";
+                document.getElementById("YXFen1").style.display = "none";
+                document.getElementById("YXFen2").style.display = "none";
+
+                break;
+        }
+    }
+
+    function Page1C() {
+        document.getElementById("Page1").style.display = "inline";
+        document.getElementById("Page1").innerHTML = '<p align="center">请选择操作模式： <select id="CZMode"><option value="1">手动模式</option><option value="2">竞技场模式</option></select></p>'
+        document.getElementById("BUTTONL").innerHTML = "<button onclick='Page2()' >下一步</button>"
+    }
+
+    function Page2() {
+        if (document.getElementById('SX') != null) {
+            MainSX = document.getElementById('SX').value
+        }
+        if (document.getElementById('YXFen') != null) {
+            MainYXFen = parseInt(document.getElementById('YXFen').value)
+        }
+        if (document.getElementById('CZMode') != null) {
+            CZMode = document.getElementById('CZMode').value
+        } else {
+            CZMode = 1
+        }
+        if (isNaN(MainYXFen)) {
+            MainYXFen = 0
+        }
+        if (CM == 4) {
+            document.getElementById('MainC').innerHTML = SXtext[MainSX - 1] + temppp
+        }
+
+
+        if (CM == 4) {
+            for (var i = 1; i <= makeupSum; i++) {
+                if (makeupData[i][3] == MainSX && makeupData[i][2] >= 4) {
+                    document.getElementById("Char1").options.add(new Option(makeupData[i][1] + "-" + makeupData[i][0], i))
+                }
+            }
+        } else {//正常加载
+            var SX = ["典雅", "清新", "甜美", "性感", "帅气"]
+            var headhtml1 = "属性：<select id=\"Shuxing1\" onchange=\"document.getElementById(\'YXFen1\').style.display=(document.getElementById(\'Shuxing1\').value==parseInt(makeupData[document.getElementById(\'Char1\').value][3])?\'inline\':\'none\')\"></select>角色：<select id=\"Char1\" onchange=\"Character(1)\">"
+            var headhtml2 = "属性：<select id=\"Shuxing2\" onchange=\"document.getElementById(\'YXFen2\').style.display=(document.getElementById(\'Shuxing2\').value==parseInt(makeupData[document.getElementById(\'Char2\').value][3])?\'inline\':\'none\')\"></select>角色：<select id=\"Char2\" onchange=\"Character(2)\">"
+            var headhtml3 = "角色：<select id=\"Char1\" onchange=\"Character(1)\">"
+            var fshtml1 = "<input name=\"Check1\" type=\"checkbox\" id=\"Check1\"/>复苏"
+            var fshtml2 = "<input name=\"Check2\" type=\"checkbox\" id=\"Check2\"/>复苏"
+            var ihtml = ""
+            for (var sx = 1; sx <= 5; sx++) {
+                ihtml = ihtml + "<optgroup label=\"" + SX[sx - 1] + "\">"
+                for (var xyd = 5; xyd >= 3; xyd--) {
+                    for (var i = 1; i <= makeupSum; i++) {
+                        if ((makeupData[i][2] == xyd.toString()) && (makeupData[i][3] == sx.toString())) {
+                            ihtml = ihtml + "<option value=\"" + i.toString() + "\">" + makeupData[i][1] + "-" + makeupData[i][0] + "</option>"
+                        }
+                    }
+                }
+                ihtml = ihtml + "</optgroup>"
+            }
+
+
+            ihtml = ihtml + "</select>"
+            document.getElementById("MainC").innerHTML = headhtml1 + ihtml + fshtml1
+            if (CM == 2) {
+                document.getElementById("MainC").innerHTML = headhtml3 + ihtml
+            }
+            document.getElementById("MainC2").innerHTML = headhtml2 + ihtml + fshtml2
+
+            if (document.getElementById("Shuxing1") != null) {
+                for (var i = 1; i <= 5; i++) {
+                    document.getElementById("Shuxing1").options.add(new Option(SX[i - 1], i))
+                    document.getElementById("Shuxing2").options.add(new Option(SX[i - 1], i))
+                }
+            }
+        }
+
+        for (var i = 80; i >= 1; i--) {
+            document.getElementById("Level1").options.add(new Option(i, i))
+        }
+        var varItem = new Option("5星0阶", 24);
+        document.getElementById("Star1").options.add(varItem);
+        for (var i = 4; i >= 1; i--) {
+            for (var j = 5; j >= 0; j--) {
+                var varItem = new Option(i.toString() + "星" + j.toString() + "阶", i * 6 + j - 6);
+                document.getElementById("Star1").options.add(varItem);
+            }
+        }
+
+        for (var i = 80; i >= 1; i--) {
+            document.getElementById("Level2").options.add(new Option(i, i))
+        }
+        var varItem = new Option("5星0阶", 24);
+        document.getElementById("Star2").options.add(varItem);
+        for (var i = 4; i >= 1; i--) {
+            for (var j = 5; j >= 0; j--) {
+                var varItem = new Option(i.toString() + "星" + j.toString() + "阶", i * 6 + j - 6);
+                document.getElementById("Star2").options.add(varItem);
+            }
+        }
+
+        document.getElementById("Page1").style.display = "none";
+        document.getElementById("Page3").style.display = "none";
+        document.getElementById("Page2").style.display = "inline";
+        Character(1);
+        document.getElementById("BUTTONL").innerHTML = "<hr class='fgx'><button onclick='Page3()' >下一步</button>"
+    }
+
+    function Page3() {
+        document.getElementById("Page2").style.display = "none";
+        document.getElementById("Page3").style.display = "inline";
+        if (CM == 4) {
+            for (var i = 1; i <= makeupSum; i++) {
+                if (makeupData[i][3] != MainSX && makeupData[i][2] >= 4) {
+                    document.getElementById("Char2").options.add(new Option(makeupData[i][1] + "-" + makeupData[i][0], i))
+                }
+            }
+        }
+        Character(2);
+        if (CM == 4) {
+            document.getElementById("BUTTONL").innerHTML = "<hr class='fgx'><button onclick='Page2()' >上一步</button> <button onclick='Page4()' >下一步</button>"
+        } else {
+            document.getElementById("BUTTONL").innerHTML = "<hr class='fgx'><button onclick='Page2C()' >上一步</button> <button onclick='Page4C()' >下一步</button>"
+        }
+    }
+
+    function Page2C() {
+        document.getElementById("Page3").style.display = "none";
+        document.getElementById("Page4").style.display = "none";
+        document.getElementById("Page1").style.display = "none";
+        document.getElementById("Page2").style.display = "inline";
+        document.getElementById("BUTTONL").innerHTML = "<hr class='fgx'><button onclick='Page3()' >下一步</button>"
+    }
+
+    function Page4C() {
+        var temp, temp2
+        var name1 = makeupData[V('Char1')][1] + "-" + makeupData[V('Char1')][0]
+        var name2 = makeupData[V('Char2')][1] + "-" + makeupData[V('Char2')][0]
+        if (name1 == name2) {
+            name1 += '1'
+            name2 += '2'
+        }
+
+        var Y1 = parseInt(document.getElementById("YXL1").value);
+        if (isNaN(Y1) || V('Shuxing1') != makeupData[V('Char1')][3]) {
+            Y1 = 0
+        }
+        var Y2 = parseInt(document.getElementById("YXL2").value);
+        if (isNaN(Y2) || V('Shuxing2') != makeupData[V('Char2')][3]) {
+            Y2 = 0
+        }
+        var Power1 = (GetPower(V('Char1'), V('Level1'), V('Star1'), (document.getElementById('Check1').checked ? true : false), V('ComboG1'), V('Shuxing1')))
+        var Score1 = (GetScore(V('Char1'), V('Skll1'), V('SkllLevel1'), V('ComboP11'), V('ComboP21'), V('ComboP31'), V('ComboP1Level1'), V('ComboP2Level1'), V('ComboP3Level1'), V('YXRank1'), V('YXLevel1'), V('ChoseYX1')))
+        var Power2 = (GetPower(V('Char2'), V('Level2'), V('Star2'), (document.getElementById('Check2').checked ? true : false), V('ComboG2'), V('Shuxing2')))
+        var Score2 = (GetScore(V('Char2'), V('Skll2'), V('SkllLevel2'), V('ComboP12'), V('ComboP22'), V('ComboP32'), V('ComboP2Level2'), V('ComboP2Level2'), V('ComboP3Level2'), V('YXRank2'), V('YXLevel2'), V('ChoseYX2')))
+        temp = "<p><font size='5'><" + name1 + "></font></p><p><font size='2'>" + V('Level1') + "级" + document.getElementById("Star1").options[document.getElementById("Star1").selectedIndex].text + "，主动" + V('SkllLevel1') + "，被动" + V('ComboP1Level1').toString() + V('ComboP2Level1').toString() + V('ComboP3Level1').toString() + "，" + (document.getElementById('Check1').checked ? "已" : "未") + "复苏，馆藏" + V('ComboG1') + "级，" + document.getElementById("YXLevel1").options[document.getElementById("YXLevel1").selectedIndex].text + document.getElementById("YXRank1").options[document.getElementById("YXRank1").selectedIndex].text + (V('ChoseYX1') == 1 ? "心技印象" : "影技印象") + "</font></p><p>搭配之力为" + Power1 + "，印象分为" + Y1 + "，得分系数为" + Score1 + "</p>"
+        temp = temp + "<hr class='fgx'><p><font size='5'><" + name2 + "></font></p><p><font size='2'>" + V('Level2') + "级" + document.getElementById("Star2").options[document.getElementById("Star2").selectedIndex].text + "，主动" + V('SkllLevel2') + "，被动" + V('ComboP1Level2').toString() + V('ComboP2Level2').toString() + V('ComboP3Level2').toString() + "，" + (document.getElementById('Check2').checked ? "已" : "未") + "复苏，馆藏" + V('ComboG2') + "级，" + document.getElementById("YXLevel2").options[document.getElementById("YXLevel2").selectedIndex].text + document.getElementById("YXRank2").options[document.getElementById("YXRank2").selectedIndex].text + (V('ChoseYX2') == 1 ? "心技印象" : "影技印象") + "</font></p><p>搭配之力为" + Power2 + "，印象分为" + Y2 + "，得分系数为" + Score2 + "</p>"
+
+        if ((Power1 + Y1) > (Power2 + Y2) && Score1 > Score2) {
+            temp2 = name1 + "的搭配之力和得分系数均超过" + name2 + "，所以选择使用" + name1 + "。"
+        }
+        if ((Power1 + Y1) > (Power2 + Y2) && Score1 < Score2) {
+            var X = Math.floor((Score2 * (Power2 + Y2) - Score1 * (Power1 + Y1)) / (Score1 - Score2))
+            if (X > 0) {
+                temp2 = "当你的搭配+羁绊+美甲+妆容>" + X + "时，选择使用" + name2 + "得分会更高；否则使用" + name1 + "的得分会更高。"
+            } else {
+                temp2 = "无论什么情况，都是" + name2 + "的得分会更高。"
+            }
+        }
+        if ((Power1 + Y1) < (Power2 + Y2) && Score1 < Score2) {
+            temp2 = name2 + "的搭配之力和得分系数均超过" + name1 + "，所以选择使用" + name2 + "。"
+        }
+
+        if ((Power1 + Y1) < (Power2 + Y2) && Score1 > Score2) {
+            var X = Math.floor((Score2 * (Power2 + Y2) - Score1 * (Power1 + Y1)) / (Score1 - Score2))
+            if (X > 0) {
+                temp2 = "当你的搭配+羁绊+美甲+妆容>" + X + "时，选择使用" + name1 + "得分会更高；否则使用" + name2 + "的得分会更高。"
+            } else {
+                temp2 = "无论什么情况，都是" + name1 + "的得分会更高。"
+            }
+        }
+
+        if ((Power1 + Y1) > (Power2 + Y2) && Score1 == Score2) {
+            temp2 = name1 + "和" + name2 + "的得分系数相同，但选择使用" + name1 + "，因为它的搭配之力分数更高。"
+        }
+        if ((Power1 + Y1) < (Power2 + Y2) && Score1 == Score2) {
+            temp2 = name1 + "和" + name2 + "的得分系数相同，但选择使用" + name2 + "，因为它的搭配之力分数更高。"
+        }
+
+        if ((Power1 + Y1) == (Power2 + Y2) && Score1 > Score2) {
+            temp2 = name1 + "的得分系数更高，所以选择使用" + name1 + "。"
+        }
+        if ((Power1 + Y1) == (Power2 + Y2) && Score1 < Score2) {
+            temp2 = name2 + "的得分系数更高，所以选择使用" + name2 + "。"
+        }
+
+        if ((Power1 + Y1) == (Power2 + Y2) && Score1 == Score2) {
+            temp2 = name1 + "和" + name2 + "是完全相同的两张卡。"
+        }
+
+        document.getElementById("Page3").style.display = "none";
+        document.getElementById("Page4").style.display = "inline";
+        document.getElementById("Page4").innerHTML = temp + "<hr class='fgx'><p>结论：" + temp2 + "</p><hr class='fgx'>"
+        document.getElementById("BUTTONL").innerHTML = "<button onclick='Page2C()'>调整参数</button> <button onclick='window.location.href=\"index.html\"'>返回首页</button>"
+    }
+
+
+    function Page4() {
+        var temp, temp2
+        var name1 = makeupData[V('Char1')][1] + "-" + makeupData[V('Char1')][0]
+        var name2 = makeupData[V('Char2')][1] + "-" + makeupData[V('Char2')][0]
+        var Power1 = (GetPower(V('Char1'), V('Level1'), V('Star1'), (document.getElementById('Check1').checked ? true : false), V('ComboG1'), parseInt(MainSX)))
+        var Score1 = (GetScore(V('Char1'), V('Skll1'), V('SkllLevel1'), V('ComboP11'), V('ComboP21'), V('ComboP31'), V('ComboP1Level1'), V('ComboP2Level1'), V('ComboP3Level1'), V('YXRank1'), V('YXLevel1'), V('ChoseYX1')))
+        var Power2 = (GetPower(V('Char2'), V('Level2'), V('Star2'), (document.getElementById('Check2').checked ? true : false), V('ComboG2'), parseInt(MainSX)))
+        // TODO 发现错误一则 下面语句第四个参数 应为V('ComboP12')
+        var Score2 = (GetScore(V('Char2'), V('Skll2'), V('SkllLevel2'), V('ComboP22'), V('ComboP22'), V('ComboP32'), V('ComboP2Level2'), V('ComboP2Level2'), V('ComboP3Level2'), V('YXRank2'), V('YXLevel2'), V('ChoseYX2')))
+        temp = "<p><font size='5'><" + name1 + "></font></p><p><font size='2'>" + V('Level1') + "级" + document.getElementById("Star1").options[document.getElementById("Star1").selectedIndex].text + "，主动" + V('SkllLevel1') + "，被动" + V('ComboP1Level1').toString() + V('ComboP2Level1').toString() + V('ComboP3Level1').toString() + "，" + (document.getElementById('Check1').checked ? "已" : "未") + "复苏，馆藏" + V('ComboG1') + "级，" + document.getElementById("YXLevel1").options[document.getElementById("YXLevel1").selectedIndex].text + document.getElementById("YXRank1").options[document.getElementById("YXRank1").selectedIndex].text + (V('ChoseYX1') == 1 ? "心技印象" : "影技印象") + "</font></p><p>搭配之力为" + Power1 + "，印象分为" + MainYXFen + "，得分系数为" + Score1 + "</p>"
+        temp = temp + "<hr class='fgx'><p><font size='5'><" + name2 + "></font></p><p><font size='2'>" + V('Level2') + "级" + document.getElementById("Star2").options[document.getElementById("Star2").selectedIndex].text + "，主动" + V('SkllLevel2') + "，被动" + V('ComboP1Level2').toString() + V('ComboP2Level2').toString() + V('ComboP3Level2').toString() + "，" + (document.getElementById('Check2').checked ? "已" : "未") + "复苏，馆藏" + V('ComboG2') + "级，" + document.getElementById("YXLevel2").options[document.getElementById("YXLevel2").selectedIndex].text + document.getElementById("YXRank2").options[document.getElementById("YXRank2").selectedIndex].text + (V('ChoseYX2') == 1 ? "心技印象" : "影技印象") + "</font></p><p>搭配之力为" + Power2 + "，得分系数为" + Score2 + "</p>"
+
+        if ((Power1 + MainYXFen) > Power2 && Score1 > Score2) {
+            temp2 = name1 + "的搭配之力和得分系数均超过" + name2 + "，所以选择使用" + name1 + "。"
+        }
+        if ((Power1 + MainYXFen) > Power2 && Score1 < Score2) {
+            var X = Math.floor((Score2 * Power2 - Score1 * (Power1 + MainYXFen)) / (Score1 - Score2))
+            temp2 = "当你的搭配+羁绊+美甲+妆容>" + X + "时，选择使用" + name2 + "得分会更高；否则使用" + name1 + "的得分会更高。"
+        }
+        document.getElementById("Page3").style.display = "none";
+        document.getElementById("Page4").innerHTML = temp + "<hr class='fgx'><p>结论：" + temp2 + "</p><hr class='fgx'>"
+        document.getElementById("BUTTONL").innerHTML = "<button onclick='Page1()'>调整参数</button> <button onclick='window.location.reload()'>返回首页</button>"
+    }
+
+    function Page4B() {
+        var temp, temp2
+        var name1 = makeupData[V('Char1')][1] + "-" + makeupData[V('Char1')][0]
+        CZMode = document.getElementById('CZMode').value
+        temp2 = V('YXL1');
+        if (isNaN(temp2)) {
+            temp2 = 0
+        }
+        var Score1 = (GetScore(V('Char1'), V('Skll1'), V('SkllLevel1'), V('ComboP11'), V('ComboP21'), V('ComboP31'), V('ComboP1Level1'), V('ComboP2Level1'), V('ComboP3Level1'), V('YXRank1'), V('YXLevel1'), V('ChoseYX1')))
+        temp = name1 + "的得分倍率：" + Score1 + "\n总搭配之力：" + temp2 + "\n预计得分：" + Math.floor(temp2 * Score1)
+        if (tempB > Math.floor(temp2 * Score1)) {
+            temp = temp + "\n比上次计算少了" + (tempB - Math.floor(temp2 * Score1)) + "分。"
+        }
+        if (tempB < Math.floor(temp2 * Score1) && tempB != 0) {
+            temp = temp + "\n比上次计算多了" + (-tempB + Math.floor(temp2 * Score1)) + "分。"
+        }
+        tempB = Math.floor(temp2 * Score1)
+        alert(temp)
+
+    }
+
+
+    function Page1() {
+        document.getElementById("Page4").innerHTML = ""
+        document.getElementById("Page2").style.display = "inline";
+        document.getElementById("BUTTONL").innerHTML = "<hr class='fgx'><button onclick='Page3()' >下一步</button>"
+    }
+
+    function Character(index) {
+        document.getElementById("Skll" + index.toString()).options[makeupData[parseInt(document.getElementById("Char" + index.toString()).value)][9]].selected = true;
+
+        document.getElementById("ComboP1" + index.toString()).options[makeupData[parseInt(document.getElementById("Char" + index.toString()).value)][10] + 1].selected = true;
+
+        document.getElementById("ComboP2" + index.toString()).options[makeupData[parseInt(document.getElementById("Char" + index.toString()).value)][11] + 1].selected = true;
+
+        document.getElementById("ComboP3" + index.toString()).options[makeupData[parseInt(document.getElementById("Char" + index.toString()).value)][12] + 1].selected = true;
+
+        if (document.getElementById("Shuxing" + index.toString()) != null) {
+            document.getElementById("Shuxing" + index.toString()).options[makeupData[parseInt(document.getElementById("Char" + index.toString()).value)][3] - 1].selected = true;
+        }
+        if (CM == 1) {
+            if (document.getElementById("YXFen" + index.toString()).style.display == "none") {
+                document.getElementById("YXFen" + index.toString()).style.display = "inline";
+            }
+        }
+
+        if (CM != 2) {
+            document.getElementById("GCL" + index.toString()).innerHTML = "(图鉴所属：" + makeupData[parseInt(document.getElementById("Char" + index.toString()).value)][13] + "）"
+        } else {
+            document.getElementById("GCL" + index.toString()).innerHTML = ""
+        }
+        if (makeupData[parseInt(document.getElementById('Char' + index.toString()).value)][2] == "3") {
+            LM = 60
+            SM = 3
+        } else {
+            LM = 80
+            SM = 4
+        }
+
+        if (document.getElementById("Star" + index.toString()).options.length != (SM * 6 + 1)) {
+            document.getElementById("Star" + index.toString()).options.length = 0
+            document.getElementById("Level" + index.toString()).options.length = 0
+            var varItem = new Option((SM + 1).toString() + "星0阶", SM * 6);
+            document.getElementById("Star" + index.toString()).options.add(varItem);
+
+            for (var i = LM; i >= 1; i--) {
+                var varItem = new Option(i.toString() + "级", i);
+                document.getElementById("Level" + index.toString()).options.add(varItem);
+            }
+
+            for (var i = SM; i >= 1; i--) {
+                for (var j = 5; j >= 0; j--) {
+                    var varItem = new Option(i.toString() + "星" + j.toString() + "阶", i * 6 + j - 6);
+                    document.getElementById("Star" + index.toString()).options.add(varItem);
+                }
+            }
+        }
+
+    }
+
+    function YXPoint(rank, level) {
+        if (rank == "1") {
+            var Point = [0, 7, 10, 12, 14, 15]
+        }
+        if (rank == "2") {
+            var Point = [0, 11.2, 16, 19.2, 22.4, 24]
+        }
+        if (rank == "3") {
+            var Point = [0, 14, 20, 24, 28, 30]
+        }
+        if (rank == "4") {
+            var Point = [0, 17.5, 25, 30, 35, 37.5]
+        }
+        if (rank == "5") {
+            var Point = [0, 12.6, 18, 21.6, 25.2, 27]
+        }
+        return Point[parseInt(level)]
+    }
+
+    function V(n) {
+        return parseInt(document.getElementById(n).value)
+    }
+
+    function Calc(tl, ts, star, iifm) {
+        if (iifm == 1) {
+            return parseInt(subLevelVal("lvstatus", 2, star, 1, tl)) + parseInt(subLevelVal("g", 3, star, 1, ts))
+        } else {
+            return parseInt(subLevelVal("lvstatus", 3, star, 1, tl))
+        }
+    }
+
+    function getLevelVal(tpln, index, star, lv) {
+        return makeupTemplate[tpln + star + "n"][lv - 1][index];
+    }
+
+    function subLevelVal(tpln, index, star, lv1, lv2) {
+        return getLevelVal(tpln, index, star, lv2);
+    }
+
+    function GetPassiveSkll(rank, level, type) {
+        var s;
+        s = 0
+        switch (rank) {
+            case 1://稀有
+                if (type == 4) {//不是饰品
+                    s = parseInt(level) * 0.2
+                } else {//是饰品
+                    s = parseInt(level)
+                }
+                break;
+            case 2://非凡
+                if (type == 4) {
+                    s = 0.4 * parseInt(level)
+                } else {
+                    s = parseInt(level) * 2
+                }
+                break;
+            case 3://闪耀
+
+                if (type == 4) {
+                    s = 0.6 + (parseInt(level) - 1) * 0.7
+                    if (parseInt(level) == 4) {
+                        s = s - 0.1
+                    }//修正
+                } else {
+                    s = 3.3 + (parseInt(level) - 1) * 3.4
+                    if (parseInt(level) == 3) {
+                        s = s - 0.1
+                    }
+                    if (parseInt(level) > 3) {
+                        s = s - 0.2
+                    }//修
+                }
+                break;
+        }
+        return s;
+    }
+
+
+    function GetPower(Char, Level, Star, FS, GC, SX) {
+        var temp;
+        temp = parseInt(makeupData[Char][3 + SX])
+        temp = temp + Calc(parseInt(Level), parseInt(Star) + 1, parseInt(makeupData[Char][2]), (parseInt(makeupData[Char][3]) == SX ? 1 : 0))
+        temp = temp * (parseInt(GC) * 0.02 + (FS ? 1.15 : 1))
+        temp = Math.round(temp)
+        return temp;
+    }
+
+    function GetScore(Char, Skill, SkillLevel, S1, S2, S3, S1L, S2L, S3L, YXRank, YXLevel, YXType) {
+        console.log(Char,Skill,SkillLevel,S1,S2,S3,S1L,S2L,S3L,YXRank,YXLevel,YXType)
+        var Multiply = new Array();
+        var FU
+        var XIN = new Array();
+        var YING = new Array();
+        var SHAN = new Array();
+        var SHANup = new Array();
+        var XINT = new Array();
+        var YZZH = new Array();
+        var s10 = new Array();
+        var s20 = new Array();
+        var Score = new Array();
+        var Power = new Array();
+        var SF = new Array();
+        var stat = new Array();
+        SF[1] = 0
+        SF[2] = 0
+        SF[3] = 0
+        Multiply[1] = 0
+        Multiply[2] = 0
+        Multiply[3] = 0
+        Multiply[4] = 0
+        Multiply[5] = 0
+        Multiply[6] = 0
+        Multiply[7] = 0
+        Multiply[8] = 0
+        var X, S, higher, lower, high, low, name1, name2, hh, M, Shuxing
+        var probability = [0.1, 0.16, 0.2, 0.25, 0.18]
+        var BaoFa = probability[YXRank - 1]
+        var Mode = (CZMode == 1 ? false : true)
+
+
+        if (YXType == 1) {//设置印象加分项
+            YXXINup = YXPoint(YXRank, YXLevel) / 100;
+            YXYINGup = 0;
+        } else {
+            YXYINGup = YXPoint(YXRank, YXLevel) / 100;
+            YXXINup = 0;
+        }
+
+        for (var i = 1; i <= 1; i++) {
+            SHANup[i] = 0
+            Multiply[1] = 0
+            Multiply[2] = 0
+            Multiply[3] = 0
+            Multiply[4] = 0
+            XINT[i] = 0
+            s10[i] = false
+            s20[i] = false
+            Rank = parseInt(makeupData[Char][2]) - 2
+
+
+            for (var num = 1; num <= 4; num++) {
+                if (S1 == num) {
+
+                    Multiply[num] = GetPassiveSkll(Rank, S1L, num)
+                }
+
+                if (S2 == num) {
+                    Multiply[num] = GetPassiveSkll(Rank, S2L, num)
+
+                }
+
+                if (S3 == num) {
+                    Multiply[num] = GetPassiveSkll(Rank, S3L, num)
+
+                }
+            }
+            //Multiply[4] = Multiply[4] * 5//设置被动加分项
+
+
+            Level = parseInt(SkillLevel)//设置主动加分项
+            switch (Rank.toString()) {
+                case "1"://稀有
+                    switch (Skill.toString()) {
+                        case "1"://闪耀时刻加成
+
+                            YZZH[i] = 10 + 2 * Level
+                            switch (Level) {
+                                case 1:
+                                    SHANup[i] = 37.5
+                                    break;
+                                case 2:
+                                    SHANup[i] = 43.8
+                                    break;
+                                case 3:
+                                    SHANup[i] = 50
+                                    break;
+                                case 4:
+                                    SHANup[i] = 56.3
+                                    break;
+                                case 5:
+                                    SHANup[i] = 62.5
+                                    break;
+                            }
+                            break;
+                        case "2"://环节加成
+                            switch (Level) {
+                                case 1:
+                                    YZZH[i] = 19.5
+                                    break;
+                                case 2:
+                                    YZZH[i] = 22.8
+                                    break;
+                                case 3:
+                                    YZZH[i] = 26
+                                    break;
+                                case 4:
+                                    YZZH[i] = 29.3
+                                    break;
+                                case 5:
+                                    YZZH[i] = 32.5
+                                    break;
+                            }
+                            break;
+                        case "4"://20s加成
+                            YZZH[i] = 12 + (Level - 1) * 2
+                            s20[i] = true
+                            switch (Level) {
+                                case 1:
+                                    XINT[i] = 11.5
+                                    break;
+                                case 2:
+                                    XINT[i] = 13.4
+                                    break;
+                                case 3:
+                                    XINT[i] = 15.4
+                                    break;
+                                case 4:
+                                    XINT[i] = 17.3
+                                    break;
+                                case 5:
+                                    XINT[i] = 19.2
+                                    break;
+                            }
+                            break;
+                        case "3"://10s加成
+                            YZZH[i] = 12 + (Level - 1) * 2
+                            s10[i] = true
+                            switch (Level) {
+                                case 1:
+                                    XINT[i] = 21.4
+                                    break;
+                                case 2:
+                                    XINT[i] = 25
+                                    break;
+                                case 3:
+                                    XINT[i] = 28.6
+                                    break;
+                                case 4:
+                                    XINT[i] = 32.1
+                                    break;
+                                case 5:
+                                    XINT[i] = 35.7
+                                    break;
+                            }
+                            break;
+                        case "5"://双闪
+                            YZZH[i] = (Level) * 2.5
+                            SHANup[i] = 100
+                            break;
+                        case "6"://功能
+                            switch (Level) {
+                                case 1:
+                                    YZZH[i] = 4.5
+                                    break;
+                                case 2:
+                                    YZZH[i] = 5.3
+                                    break;
+                                case 3:
+                                    YZZH[i] = 6
+                                    break;
+                                case 4:
+                                    YZZH[i] = 6.8
+                                    break;
+                                case 5:
+                                    YZZH[i] = 7.5
+                                    break;
+                            }
+                            break;
+                    }
+                    break;
+                case "3"://闪耀
+                    switch (Skill.toString()) {
+                        case "1"://闪耀时刻加成
+                            YZZH[i] = 12.5 + 2.5 * Level
+                            SHANup[i] = 62.5 + Level * 12.5
+                            break;
+                        case "2"://环节加成
+                            YZZH[i] = 25 + Level * 5
+                            break;
+                        case "4"://20s加成
+                            YZZH[i] = 18 + (Level - 1) * 3
+                            s20[i] = true
+                            switch (Level) {
+                                case 1:
+                                    XINT[i] = 18.5
+                                    break;
+                                case 2:
+                                    XINT[i] = 21.6
+                                    break;
+                                case 3:
+                                    XINT[i] = 24.6
+                                    break;
+                                case 4:
+                                    XINT[i] = 27.7
+                                    break;
+                                case 5:
+                                    XINT[i] = 30.8
+                                    break;
+                            }
+                            break;
+                        case "3"://10s加成
+                            YZZH[i] = 18 + (Level - 1) * 3
+                            s10[i] = true
+                            switch (Level) {
+                                case 1:
+                                    XINT[i] = 34.2
+                                    break;
+                                case 2:
+                                    XINT[i] = 40
+                                    break;
+                                case 3:
+                                    XINT[i] = 45.6
+                                    break;
+                                case 4:
+                                    XINT[i] = 51.3
+                                    break;
+                                case 5:
+                                    XINT[i] = 57.1
+                                    break;
+                            }
+                            break;
+                        case "5"://双闪
+                            alert("尚未有闪耀属性的双闪瞬设计师，数据仅供参考。")
+                            YZZH[i] = (Level) * 6
+                            SHANup[i] = 100
+                            break;
+                        case "6"://功能
+                            alert("尚未有闪耀属性功能卡设计师，数据仅供参考。")
+                            YZZH[i] = 100
+                            break;
+                    }
+                    break;
+                case "2"://非凡
+                    switch (Skill.toString()) {
+                        case "1"://闪耀时刻加成
+                            hh = document.getElementById("Char" + i.toString()).options[document.getElementById("Char" + i.toString()).selectedIndex].text
+
+                            if ((hh == "晴夏海风-暖暖") || (hh == "灵魂魔术-夜骸")) {
+                                YZZH[i] = 10 + 2 * Level
+                                SHANup[i] = 50 + Level * 10
+                            } else {
+                                YZZH[i] = 12.5 + 2.5 * Level
+                                SHANup[i] = 37.5 + Level * 7.5
+                            }
+                            break;
+                        case "2"://环节加成
+                            YZZH[i] = 20 + Level * 4
+                            break;
+                        case "4"://20s加成
+                            YZZH[i] = 15 + (Level - 1) * 2.5
+                            s20[i] = true
+                            XINT[i] = 13.9 + (Level - 1) * 2.3
+                            break;
+                        case "3"://10s加成
+                            YZZH[i] = 15 + (Level - 1) * 2.5
+                            s10[i] = true
+                            XINT[i] = 25.7 + (Level - 1) * 4.3
+                            break;
+                        case "5"://双闪
+                            YZZH[i] = (Level) * 4
+                            SHANup[i] = 100
+                            break;
+                        case "6"://功能
+                            YZZH[i] = 9 + (Level - 1) * 1.5
+                            break;
+                    }
+            }
+
+
+            FU = "1"
+            SHAN[i] = 0.2 * (1 + SHANup[i] / 100)
+            YING[i] = (YZZH[i] / 100) * (1 + YXYINGup)
+
+
+            for (var num = 1; num <= 8; num++) {
+                var adda
+
+                if (s20[i] == true) {
+                    if (num == 1) {
+                        if (Mode) {
+                            adda = true
+                        } else {
+                            adda = true
+                        }
+                    }//4 头发
+                    if (num == 2) {
+                        if (Mode) {
+                            adda = false
+                        } else {
+                            adda = true
+                        }
+                    }//1 裙子
+                    if (num == 3) {
+                        if (Mode) {
+                            adda = false
+                        } else {
+                            adda = false
+                        }
+                    }//8 鞋袜
+                    if (num == 4) {
+                        if (Mode) {
+                            adda = false
+                        } else {
+                            adda = true
+                        }
+                    }//2 饰品1
+                    if (num == 5) {
+                        if (Mode) {
+                            adda = true
+                        } else {
+                            adda = true
+                        }
+                    }//3 饰品2
+                    if (num == 6) {
+                        if (Mode) {
+                            adda = true
+                        } else {
+                            adda = true
+                        }
+                    }//5 饰品3
+                    if (num == 7) {
+                        if (Mode) {
+                            adda = true
+                        } else {
+                            adda = true
+                        }
+                    }//6 饰品4
+                    if (num == 8) {
+                        if (Mode) {
+                            adda = true
+                        } else {
+                            adda = false
+                        }
+                    }//7 饰品5
+                }
+
+                if (s10[i] == true) {
+                    if (num == 1) {
+                        if (Mode) {
+                            adda = true
+                        } else {
+                            adda = true
+                        }
+                    }//4 头发
+                    if (num == 2) {
+                        if (Mode) {
+                            adda = false
+                        } else {
+                            adda = true
+                        }
+                    }//1 裙子
+                    if (num == 3) {
+                        if (Mode) {
+                            adda = false
+                        } else {
+                            adda = false
+                        }
+                    }//8 鞋袜
+                    if (num == 4) {
+                        if (Mode) {
+                            adda = false
+                        } else {
+                            adda = true
+                        }
+                    }//2 饰品1
+                    if (num == 5) {
+                        if (Mode) {
+                            adda = false
+                        } else {
+                            adda = true
+                        }
+                    }//3 饰品2
+                    if (num == 6) {
+                        if (Mode) {
+                            adda = true
+                        } else {
+                            adda = false
+                        }
+                    }//5 饰品3
+                    if (num == 7) {
+                        if (Mode) {
+                            adda = false
+                        } else {
+                            adda = false
+                        }
+                    }//6 饰品4
+                    if (num == 8) {
+                        if (Mode) {
+                            adda = false
+                        } else {
+                            adda = false
+                        }
+                    }//7 饰品5
+                }
+                XINup = adda ? XINT[i] / 100 : 0
+
+                XIN[num] = ((num > 3 ? 0.025 : 0.125) + Multiply[(num > 3 ? 4 : num)] / 100) * (1 + XINup + YXXINup + ((Mode == false) && (num == 4 || num == 2) ? 1 : (Mode == false ? 0 : BaoFa)) * 0.5)
+            }
+
+            K = 3 * (1 + XIN[1] + XIN[2] + XIN[3] + XIN[4] + XIN[5] + XIN[6] + XIN[7] + XIN[8] + YING[i] + SHAN[i])
+            K = K.toFixed(4)
+            Score[i] = K
+        }
+        return Score[1];
+    }
+
+</script>
+</body>
+>>>>>>> 0f4abfd657f9d960c785c1e570bf132e8096606a
 </html>
