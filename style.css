@@ -220,6 +220,9 @@ hr.fgx {
 .bodysB .flexgrow{
     flex-grow: 1;
 }
+.bodysB span {
+    color: lightskyblue;
+}
 .bodysC .flexgrow{
     flex-grow: 1;
 }

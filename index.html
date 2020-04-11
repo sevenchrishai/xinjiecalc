@@ -65,9 +65,12 @@
                 <div>
                     <input type="checkbox" v-model="allRoleObj.isFusu"/>复苏
                 </div>
+                <div>
+                    <span>({{makeupData[allRoleObj.propRoleKey][13]}})</span>
+                </div>
             </div>
             <div class="bodysC">
-                <div style="width: 100px">等级
+                <div>等级
                     <select name="Star2" v-model="allRoleObj.roleLevelVal">
                         <option v-for="count in 80" :value="count">{{count}}</option>
                     </select>
@@ -77,8 +80,8 @@
                         <option v-for="(item,index) in starArr" :value="index">{{item}}</option>
                     </select>
                 </div>
-                <div class="flexgrow">
-                    馆藏<span>({{makeupData[allRoleObj.propRoleKey][13]}})</span>
+                <div class="text-right">
+                    馆藏
                     <select name="ComboLevel" v-model="allRoleObj.collectVal">
                         <option v-for="count in 8" :value="count-1">{{count-1}}</option>
                     </select>
