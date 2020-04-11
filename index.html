@@ -59,7 +59,7 @@
             <div class="bodysC">
                 <div>角色
                     <select v-model="allRoleObj.propRoleKey" @change="getAllRole">
-                        <option v-for="(item,key,index) in allPropRoleObj" :value="key">{{item}}</option>
+                        <option v-for="(item,index) in allPropRoleArr" :value="item.dataIndex">{{item.dataName}}</option>
                     </select>
                 </div>
                 <div>
@@ -177,7 +177,7 @@
             <div>
                 角色
                 <select id="Char1" v-model="mainRoleObj.propRoleKey" @change="getMainRole()">
-                    <option v-for="(item,key,index) in mainPropRoleObj" :value="key">{{item}}</option>
+                    <option v-for="(item,index) in mainPropRoleArr" :value="item.dataIndex">{{item.dataName}}</option>
                 </select>
             </div>
             <div>
@@ -283,7 +283,7 @@
             <div>
                 角色
                 <select v-model="secondRoleObj.propRoleKey" @change="getSecondRole()">
-                    <option v-for="(item,key,index) in secondPropRoleObj" :value="key">{{item}}</option>
+                    <option v-for="(item,index) in secondPropRoleArr" :value="item.dataIndex">{{item.dataName}}</option>
                 </select>
             </div>
             <div>

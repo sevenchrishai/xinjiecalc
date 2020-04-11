@@ -14,9 +14,9 @@ var app = new Vue({
         secondPropKey: '1',// 卡牌2绑定的属性radio
         mainPropScore: 0,//卡牌1印象总分
         secondPropScore: 0,//卡牌2印象总分
-        allPropRoleObj: {},//卡牌库中选中的属性对应的角色列表
-        mainPropRoleObj: {},//卡牌1中选中的属性对应的角色列表
-        secondPropRoleObj: {},//卡牌2中选中的属性对应的角色列表
+        allPropRoleArr: [],//卡牌库中选中的属性对应的角色列表
+        mainPropRoleArr: [],//卡牌1中选中的属性对应的角色列表
+        secondPropRoleArr: [],//卡牌2中选中的属性对应的角色列表
         allRoleObj:{
             propRoleKey: '',//角色
             propRoleVal: '',
@@ -912,20 +912,25 @@ var app = new Vue({
             _this.getAllPropRoleObj();
             _this.getAllRole();
         },
-        // 卡牌库-获取选中属性的角色列表 allPropRoleObj
+        // 卡牌库-获取选中属性的角色列表 allPropRoleArr
         getAllPropRoleObj(){
             let _this = this;
-            _this.allPropRoleObj = {};//卡牌库
+            _this.allPropRoleArr = [];//卡牌库
             for (let i =1; i<=_this.makeupSum; i++) {
                 if (_this.makeupData[i][2]>=4) {//稀有度 非凡以上
                     if (_this.makeupData[i][3]==_this.allPropKey) {//选中的主属性
-                        _this.allPropRoleObj[i] = _this.makeupData[i][1]+"-"+_this.makeupData[i][0];
+                        let item = {}
+                        item.dataIndex = i;
+                        item.dataName = _this.makeupData[i][1]+"-"+_this.makeupData[i][0];
+                        item.dataType = _this.makeupData[i][2]
+                        _this.allPropRoleArr.push(item)
                     }
                 }
             }
-            _this.allRoleObj.propRoleKey = Object.keys(_this.allPropRoleObj)[0];
-            _this.allRoleObj.propRoleVal = _this.allPropRoleObj[_this.allRoleObj.propRoleKey];
-            console.log('卡牌库-角色列表',_this.allPropRoleObj)
+            _this.allPropRoleArr.sort(function(x,y){return y.dataType-x.dataType});
+            _this.allRoleObj.propRoleKey = _this.allPropRoleArr[0].dataIndex;
+            _this.allRoleObj.propRoleVal = _this.allPropRoleArr[0].dataName;
+            console.log('卡牌库-角色列表',_this.allPropRoleArr)
         },
         // 卡牌库-如果localStorage里已存在，获取选中角色的属性对象allRoleObj，否则取初始值;角色-change事件
         getAllRole(){
@@ -934,7 +939,7 @@ var app = new Vue({
             if(allRoleKeyStorage && JSON.parse(allRoleKeyStorage).propRoleKey == _this.allRoleObj.propRoleKey){
                 _this.allRoleObj = JSON.parse(allRoleKeyStorage);
             } else {
-                _this.getAllPassiveSkillVal(_this.allRoleObj, _this.allPropRoleObj);
+                _this.getAllPassiveSkillVal(_this.allRoleObj, _this.allPropRoleArr);
                 _this.getAllRoleCollection(_this.allRoleObj);
             }
         },
@@ -952,20 +957,25 @@ var app = new Vue({
             _this.getMainPropRoleObj();
             _this.getMainRole();
         },
-        // 卡牌1-获取选中属性的角色列表 mainPropRoleObj
+        // 卡牌1-获取选中属性的角色列表 mainPropRoleArr
         getMainPropRoleObj(){
             let _this = this;
-            _this.mainPropRoleObj = {};//卡牌
+            _this.mainPropRoleArr = [];//卡牌
             for (let i =1; i<=_this.makeupSum; i++) {
                 if (_this.makeupData[i][2]>=4) {//稀有度 非凡以上
                     if (_this.makeupData[i][3]==_this.mainPropKey) {//选中的主属性
-                        _this.mainPropRoleObj[i] = _this.makeupData[i][1]+"-"+_this.makeupData[i][0];
+                        let item = {}
+                        item.dataIndex = i;
+                        item.dataName = _this.makeupData[i][1]+"-"+_this.makeupData[i][0];
+                        item.dataType = _this.makeupData[i][2]
+                        _this.mainPropRoleArr.push(item)
                     }
                 }
             }
-            _this.mainRoleObj.propRoleKey = Object.keys(_this.mainPropRoleObj)[0];
-            _this.mainRoleObj.propRoleVal = _this.mainPropRoleObj[_this.mainRoleObj.propRoleKey];
-            console.log('卡牌1-角色列表',_this.mainPropRoleObj)
+            _this.mainPropRoleArr.sort(function(x,y){return y.dataType-x.dataType});
+            _this.mainRoleObj.propRoleKey = _this.mainPropRoleArr[0].dataIndex;
+            _this.mainRoleObj.propRoleVal = _this.mainPropRoleArr[0].dataName;
+            console.log('卡牌1-角色列表',_this.mainPropRoleArr)
         },
         // 卡牌1-如果localStorage里已存在，获取选中角色的属性对象mainRoleObj，否则取初始值;角色-change事件
         getMainRole(){
@@ -974,7 +984,7 @@ var app = new Vue({
             if(allRoleKeyStorage && JSON.parse(allRoleKeyStorage).propRoleKey == _this.mainRoleObj.propRoleKey){
                 _this.mainRoleObj = JSON.parse(allRoleKeyStorage);
             } else {
-                _this.getAllPassiveSkillVal(_this.mainRoleObj, _this.mainPropRoleObj);
+                _this.getAllPassiveSkillVal(_this.mainRoleObj, _this.mainPropRoleArr);
                 _this.getAllRoleCollection(_this.mainRoleObj);
             }
         },
@@ -992,20 +1002,25 @@ var app = new Vue({
             _this.getSecondPropRoleObj();
             _this.getSecondRole();
         },
-        // 卡牌2-获取选中属性的角色列表 secondPropRoleObj
+        // 卡牌2-获取选中属性的角色列表 secondPropRoleArr
         getSecondPropRoleObj(){
             let _this = this;
-            _this.secondPropRoleObj = {};//卡牌
+            _this.secondPropRoleArr = [];//卡牌
             for (let i =1; i<=_this.makeupSum; i++) {
                 if (_this.makeupData[i][2]>=4) {//稀有度 非凡以上
                     if (_this.makeupData[i][3]==_this.secondPropKey) {//选中的主属性
-                        _this.secondPropRoleObj[i] = _this.makeupData[i][1]+"-"+_this.makeupData[i][0];
+                        let item = {}
+                        item.dataIndex = i;
+                        item.dataName = _this.makeupData[i][1]+"-"+_this.makeupData[i][0];
+                        item.dataType = _this.makeupData[i][2]
+                        _this.secondPropRoleArr.push(item)
                     }
                 }
             }
-            _this.secondRoleObj.propRoleKey = Object.keys(_this.secondPropRoleObj)[0];
-            _this.secondRoleObj.propRoleVal = _this.secondPropRoleObj[_this.secondRoleObj.propRoleKey];
-            console.log('卡牌2-角色列表',_this.secondPropRoleObj)
+            _this.secondPropRoleArr.sort(function(x,y){return y.dataType-x.dataType});
+            _this.secondRoleObj.propRoleKey = _this.secondPropRoleArr[0].dataIndex;
+            _this.secondRoleObj.propRoleVal = _this.secondPropRoleArr[0].dataName;
+            console.log('卡牌2-角色列表',_this.secondPropRoleArr)
         },
         // 卡牌2-如果localStorage里已存在，获取选中角色的属性对象secondRoleObj，否则取初始值;角色-change事件
         getSecondRole(){
@@ -1014,7 +1029,7 @@ var app = new Vue({
             if(allRoleKeyStorage && JSON.parse(allRoleKeyStorage).propRoleKey == _this.secondRoleObj.propRoleKey){
                 _this.secondRoleObj = JSON.parse(allRoleKeyStorage);
             } else {
-                _this.getAllPassiveSkillVal(_this.secondRoleObj, _this.secondPropRoleObj);
+                _this.getAllPassiveSkillVal(_this.secondRoleObj, _this.secondPropRoleArr);
                 _this.getAllRoleCollection(_this.secondRoleObj);
             }
         },
@@ -1027,10 +1042,17 @@ var app = new Vue({
         },
         //
         // 通用方法-获取选中角色影子技能和被动技能-初始值
-        getAllPassiveSkillVal(roleObj, propRoleObj){
+        getAllPassiveSkillVal(roleObj, propRoleArr){
             let _this = this;
-            if (roleObj && propRoleObj) {
-                roleObj.propRoleVal = propRoleObj[roleObj.propRoleKey];
+            if (roleObj && propRoleArr) {
+                roleObj.propRoleVal = '';
+                try {
+                    let tmpItem = propRoleArr.find(function(item,index){return item.dataIndex == roleObj.propRoleKey})
+                    if (tmpItem) {
+                        roleObj.propRoleVal = tmpItem.dataName;
+                    }
+                } catch (e) {
+                }
                 roleObj.shadowVal = _this.makeupData[roleObj.propRoleKey][9];
                 roleObj.shadowLevelVal = 1;
                 roleObj.passiveSkillVal1 = _this.makeupData[roleObj.propRoleKey][10]+1;
@@ -1057,7 +1079,11 @@ var app = new Vue({
         // 对比
         compareScore() {
             let _this = this;
-            var temp, temp2
+            _this.mainPower = 0;
+            _this.mainScore = 0;
+            _this.secondPower = 0;
+            _this.secondScore = 0;
+            var temp, temp2;
             _this.mainPower = _this.getPower(
                 _this.mainRoleObj.propRoleKey,
                 _this.mainRoleObj.roleLevelVal,
@@ -1066,7 +1092,7 @@ var app = new Vue({
                 _this.mainRoleObj.collectVal,
                 _this.mainPropKey);
             _this.mainScore = _this.getScore(
-                _this.mainPropRoleObj,
+                _this.mainPropRoleArr,
                 _this.mainRoleObj.propRoleKey,
                 1+_this.mainRoleObj.shadowVal,
                 _this.mainRoleObj.shadowLevelVal,
@@ -1087,7 +1113,7 @@ var app = new Vue({
                 _this.secondRoleObj.collectVal,
                 _this.secondPropKey);
             _this.secondScore = _this.getScore(
-                _this.secondPropRoleObj,
+                _this.secondPropRoleArr,
                 _this.secondRoleObj.propRoleKey,
                 1+_this.secondRoleObj.shadowVal,
                 _this.secondRoleObj.shadowLevelVal,
@@ -1130,7 +1156,7 @@ var app = new Vue({
             let _this = this;
             return _this.makeupTemplate[tpln + star + "n"][lv - 1][index];
         },
-        getScore(propRoleObj,Char,Skill,SkillLevel,S1,S2,S3,S1L,S2L,S3L,YXRank,YXLevel,YXType){
+        getScore(propRoleArr,Char,Skill,SkillLevel,S1,S2,S3,S1L,S2L,S3L,YXRank,YXLevel,YXType){
             //角色，影子，影子等级，被动技能1,2,3，被动技能等级1,2,3，核心印象，印象深化，印象种类
             console.log(Char,Skill,SkillLevel,S1,S2,S3,S1L,S2L,S3L,YXRank,YXLevel,YXType)//5 0 1 2 3 4 1 1 1 2 5 1
             let _this = this;
@@ -1163,7 +1189,7 @@ var app = new Vue({
             var X, S, higher, lower, high, low, name1, name2, hh, M, Shuxing;
             var probability = [0.1, 0.16, 0.2, 0.25, 0.18];
             var BaoFa = probability[YXRank - 1];
-            var Mode = _this.czMode !== 1
+            var Mode = _this.czMode != 1;
             if (YXType == 1) {//设置印象加分项
                 YXXINup = _this.YXPoint(YXRank, YXLevel) / 100;
                 YXYINGup = 0;
@@ -1368,7 +1394,7 @@ var app = new Vue({
                     case "2"://非凡
                         switch (Skill.toString()) {
                             case "1"://闪耀时刻加成
-                                hh = Object.values(propRoleObj)[0];
+                                hh = propRoleArr[0].dataName;
                                 if ((hh == "晴夏海风-暖暖") || (hh == "灵魂魔术-夜骸")) {
                                     YZZH[i] = 10 + 2 * Level
                                     SHANup[i] = 50 + Level * 10
