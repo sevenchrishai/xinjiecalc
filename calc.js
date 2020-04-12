@@ -1083,6 +1083,7 @@ var app = new Vue({
             _this.mainScore = 0;
             _this.secondPower = 0;
             _this.secondScore = 0;
+            _this.compareResult = 0;
             var temp, temp2;
             _this.mainPower = _this.getPower(
                 _this.mainRoleObj.propRoleKey,
@@ -1127,9 +1128,7 @@ var app = new Vue({
                 _this.secondRoleObj.coreImpressionLevelVal,
                 _this.secondRoleObj.coreImpressionTypeVal);
             console.log(_this.mainPower,_this.secondPower,_this.mainScore,_this.secondScore)
-            if ((_this.mainPower+_this.mainPropScore)>(_this.secondPower+_this.secondPropScore) && _this.mainScore<_this.secondScore){
-                _this.compareResult = Math.floor((_this.secondScore*(_this.secondPower+_this.secondPropScore)-_this.mainScore*(_this.mainPower+_this.mainPropScore))/(_this.mainScore-_this.secondScore));
-            }
+            _this.compareResult = Math.floor((_this.secondScore*(_this.secondPower+_this.secondPropScore)-_this.mainScore*(_this.mainPower+_this.mainPropScore))/(_this.mainScore-_this.secondScore));
         },
         getPower(roleKey, roleLevel, star, isFusu, collect, mainPropKey){//角色，等级，星级，是否复苏，馆藏，主属性卡
             let _this = this;
