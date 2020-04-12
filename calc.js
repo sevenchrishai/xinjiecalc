@@ -1,7 +1,7 @@
 var app = new Vue({
     el: "#app",
     data: {
-        title: '卡牌对比计算器-国服',
+        title: '卡牌对比计算器',
         propObj: {
             1: '典雅',
             2: '清新',
