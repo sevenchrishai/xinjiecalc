@@ -5,6 +5,6 @@
 4.加上馆藏buff-自定义等级；ok
 5.角色加上排序（按照闪耀）delete
 
-页面预览：[https://sevenchrishai.github.io/xinjiecalc/index.html
-]
+[页面预览](https://sevenchrishai.github.io/xinjiecalc/index.html)
+
 ```
