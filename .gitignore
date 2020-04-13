@@ -1,2 +1,8 @@
-*.idea
-*.git
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.map
+*.ntvs*
+*.njsproj
+*.sln
