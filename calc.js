@@ -1128,7 +1128,23 @@ var app = new Vue({
                 _this.secondRoleObj.coreImpressionLevelVal,
                 _this.secondRoleObj.coreImpressionTypeVal);
             console.log(_this.mainPower,_this.secondPower,_this.mainScore,_this.secondScore)
-            _this.compareResult = Math.floor((_this.secondScore*(_this.secondPower+_this.secondPropScore)-_this.mainScore*(_this.mainPower+_this.mainPropScore))/(_this.mainScore-_this.secondScore));
+            // 当卡1的分数和 > 卡2的分数和，并且卡1的系数 < 卡2的得分系数
+            let ka2value = _this.secondScore*(parseInt(_this.secondPower)+parseInt(_this.secondPropScore));
+            let ka1value = _this.mainScore*(parseInt(_this.mainPower)+parseInt(_this.mainPropScore));
+            let chaVlue = ka2value - ka1value;
+            let chaXishuValue = _this.mainScore - _this.secondScore;
+            let chuValue = chaVlue/chaXishuValue
+            _this.compareResult = Math.floor(chuValue);
+            /**
+             * ((卡1分数+卡1印象分+x)*卡1系数) > ((卡2分数+卡2印象分+x)*卡2系数)
+             *
+             * ka1value + x*卡1系数 > ka2value + x*卡2系数
+             *
+             *  x(卡1系数 - 卡2系数) > chaVlue
+             *
+             *  x > chaVlue / chaXishuValue
+             */
+            console.log(_this.compareResult)
         },
         getPower(roleKey, roleLevel, star, isFusu, collect, mainPropKey){//角色，等级，星级，是否复苏，馆藏，主属性卡
             let _this = this;
