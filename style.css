@@ -66,6 +66,19 @@ select[disabled] {
 .radioGroup1 input[type="radio"]:checked + label {
     background-color: #3298dc;
 }
+.radioGroup1 button{
+    color: #fff;
+    border: transparent;
+    background-color: #cccccc;
+}
+.radioGroup1 button:hover{
+    color: white;
+}
+.radioGroup1 button.active{
+    color: #fff;
+    border: transparent;
+    background-color: #3298dc;
+}
 .collection {
     padding-left: 10px;
     display: flex;
@@ -203,6 +216,25 @@ select[disabled] {
 }
 
 .radioGroup-kka2 input[type="radio"]:checked + label#label25 {
+    background-color: #7198f5;
+}
+.radioGroup-kka2 input[type="radio"]:checked + label#labell21 {
+    background-color: #f4c534;
+}
+
+.radioGroup-kka2 input[type="radio"]:checked + label#labell22 {
+    background-color: #5addad;
+}
+
+.radioGroup-kka2 input[type="radio"]:checked + label#labell23 {
+    background-color: #fea1af;
+}
+
+.radioGroup-kka2 input[type="radio"]:checked + label#labell24 {
+    background-color: #c05ff5;
+}
+
+.radioGroup-kka2 input[type="radio"]:checked + label#labell25 {
     background-color: #7198f5;
 }
 hr {

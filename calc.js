@@ -12,6 +12,9 @@ var app = new Vue({
         allPropKey: '1',// 卡牌库绑定的属性radio
         mainPropKey: '1',// 卡牌1绑定的属性radio
         secondPropKey: '1',// 卡牌2绑定的属性radio
+        compareVal: '1', // 对比按钮绑定的属性radio
+        compareBtnVal: '1',
+        resultContent: '',
         mainPropScore: 0,//卡牌1印象总分
         secondPropScore: 0,//卡牌2印象总分
         allPropRoleArr: [],//卡牌库中选中的属性对应的角色列表
@@ -103,8 +106,9 @@ var app = new Vue({
         makeupSum: 84,
         collection:[],
         collectionFlag: false,
-        cards: true,
+        cards: false,
         compareResult: 0,
+        compareResult2: 0,
         collectionKey: "collection",
         allRoleKey:"allRoleKey",
         makeupData: {
@@ -1076,75 +1080,276 @@ var app = new Vue({
             }
         },
         //
-        // 对比
-        compareScore() {
+        // 对比 + compareBtnVal change事件
+        compareScore(e) {
+            console.log(e)
             let _this = this;
-            _this.mainPower = 0;
-            _this.mainScore = 0;
-            _this.secondPower = 0;
-            _this.secondScore = 0;
-            _this.compareResult = 0;
-            var temp, temp2;
-            _this.mainPower = _this.getPower(
-                _this.mainRoleObj.propRoleKey,
-                _this.mainRoleObj.roleLevelVal,
-                _this.mainRoleObj.starVal,
-                _this.mainRoleObj.isFusu,
-                _this.mainRoleObj.collectVal,
-                _this.mainPropKey);
-            _this.mainScore = _this.getScore(
-                _this.mainPropRoleArr,
-                _this.mainRoleObj.propRoleKey,
-                1+_this.mainRoleObj.shadowVal,
-                _this.mainRoleObj.shadowLevelVal,
-                _this.mainRoleObj.passiveSkillVal1,
-                _this.mainRoleObj.passiveSkillVal2,
-                _this.mainRoleObj.passiveSkillVal3,
-                _this.mainRoleObj.passiveSkillLevelVal1,
-                _this.mainRoleObj.passiveSkillLevelVal2,
-                _this.mainRoleObj.passiveSkillLevelVal3,
-                _this.mainRoleObj.coreImpressionVal,
-                _this.mainRoleObj.coreImpressionLevelVal,
-                _this.mainRoleObj.coreImpressionTypeVal);
-            _this.secondPower = _this.getPower(
-                _this.secondRoleObj.propRoleKey,
-                _this.secondRoleObj.roleLevelVal,
-                _this.secondRoleObj.starVal,
-                _this.secondRoleObj.isFusu,
-                _this.secondRoleObj.collectVal,
-                _this.secondPropKey);
-            _this.secondScore = _this.getScore(
-                _this.secondPropRoleArr,
-                _this.secondRoleObj.propRoleKey,
-                1+_this.secondRoleObj.shadowVal,
-                _this.secondRoleObj.shadowLevelVal,
-                _this.secondRoleObj.passiveSkillVal1,
-                _this.secondRoleObj.passiveSkillVal2,
-                _this.secondRoleObj.passiveSkillVal3,
-                _this.secondRoleObj.passiveSkillLevelVal1,
-                _this.secondRoleObj.passiveSkillLevelVal2,
-                _this.secondRoleObj.passiveSkillLevelVal3,
-                _this.secondRoleObj.coreImpressionVal,
-                _this.secondRoleObj.coreImpressionLevelVal,
-                _this.secondRoleObj.coreImpressionTypeVal);
-            console.log(_this.mainPower,_this.secondPower,_this.mainScore,_this.secondScore)
-            // 当卡1的分数和 > 卡2的分数和，并且卡1的系数 < 卡2的得分系数
-            let ka2value = _this.secondScore*(parseInt(_this.secondPower)+parseInt(_this.secondPropScore));
-            let ka1value = _this.mainScore*(parseInt(_this.mainPower)+parseInt(_this.mainPropScore));
-            let chaVlue = ka2value - ka1value;
-            let chaXishuValue = _this.mainScore - _this.secondScore;
-            let chuValue = chaVlue/chaXishuValue
-            _this.compareResult = Math.floor(chuValue);
-            /**
-             * ((卡1分数+卡1印象分+x)*卡1系数) > ((卡2分数+卡2印象分+x)*卡2系数)
-             *
-             * ka1value + x*卡1系数 > ka2value + x*卡2系数
-             *
-             *  x(卡1系数 - 卡2系数) > chaVlue
-             *
-             *  x > chaVlue / chaXishuValue
-             */
-            console.log(_this.compareResult)
+            _this.compareBtnVal = e || '1';
+            if (_this.compareBtnVal == 1) {
+                _this.mainPower = 0;
+                _this.mainScore = 0;
+                _this.secondPower = 0;
+                _this.secondScore = 0;
+                _this.compareResult = 0;
+                _this.compareResult2 = 0;
+                _this.mainPower = _this.getPower(
+                    _this.mainRoleObj.propRoleKey,
+                    _this.mainRoleObj.roleLevelVal,
+                    _this.mainRoleObj.starVal,
+                    _this.mainRoleObj.isFusu,
+                    _this.mainRoleObj.collectVal,
+                    _this.mainPropKey);
+                _this.mainScore = _this.getScore(
+                    _this.mainPropRoleArr,
+                    _this.mainRoleObj.propRoleKey,
+                    1+_this.mainRoleObj.shadowVal,
+                    _this.mainRoleObj.shadowLevelVal,
+                    _this.mainRoleObj.passiveSkillVal1,
+                    _this.mainRoleObj.passiveSkillVal2,
+                    _this.mainRoleObj.passiveSkillVal3,
+                    _this.mainRoleObj.passiveSkillLevelVal1,
+                    _this.mainRoleObj.passiveSkillLevelVal2,
+                    _this.mainRoleObj.passiveSkillLevelVal3,
+                    _this.mainRoleObj.coreImpressionVal,
+                    _this.mainRoleObj.coreImpressionLevelVal,
+                    _this.mainRoleObj.coreImpressionTypeVal);
+                _this.secondPower = _this.getPower(
+                    _this.secondRoleObj.propRoleKey,
+                    _this.secondRoleObj.roleLevelVal,
+                    _this.secondRoleObj.starVal,
+                    _this.secondRoleObj.isFusu,
+                    _this.secondRoleObj.collectVal,
+                    _this.secondPropKey);
+                _this.secondScore = _this.getScore(
+                    _this.secondPropRoleArr,
+                    _this.secondRoleObj.propRoleKey,
+                    1+_this.secondRoleObj.shadowVal,
+                    _this.secondRoleObj.shadowLevelVal,
+                    _this.secondRoleObj.passiveSkillVal1,
+                    _this.secondRoleObj.passiveSkillVal2,
+                    _this.secondRoleObj.passiveSkillVal3,
+                    _this.secondRoleObj.passiveSkillLevelVal1,
+                    _this.secondRoleObj.passiveSkillLevelVal2,
+                    _this.secondRoleObj.passiveSkillLevelVal3,
+                    _this.secondRoleObj.coreImpressionVal,
+                    _this.secondRoleObj.coreImpressionLevelVal,
+                    _this.secondRoleObj.coreImpressionTypeVal);
+
+                if (_this.mainPropScore=='') _this.mainPropScore = 0;
+                if (_this.secondPropScore=='') _this.secondPropScore = 0;
+                _this.mainPropScore = parseInt(_this.mainPropScore);
+                _this.secondPropScore = parseInt(_this.secondPropScore);
+                _this.mainScore = parseFloat(_this.mainScore)
+                _this.secondScore = parseFloat(_this.secondScore)
+                console.log(_this.mainPower,_this.secondPower,  // 搭配之力
+                    _this.mainScore,_this.secondScore,  // 得分系数
+                    _this.mainPropScore,_this.secondPropScore)  // 印象分
+
+                let ka1Sum = _this.mainPower + _this.mainPropScore;   // 卡1分数和
+                let ka2Sum = _this.secondPower + _this.secondPropScore;   // 卡2分数和
+                let ka1value = _this.mainScore * ka1Sum;    // 卡1 系数跟分数和的乘积
+                let ka2value = _this.secondScore * ka2Sum;  // 卡2 系数跟分数和的乘积
+                let chaVlue = ka2value - ka1value;  // 卡2 系数跟分数和的乘积 - 卡1 系数跟分数和的乘积
+                let xiShuChaValue = _this.mainScore - _this.secondScore;    // 卡1得分系数 - 卡2得分系数
+
+                // 结论
+                if (ka1Sum == ka2Sum) {
+                    if (_this.mainScore == _this.secondScore) {
+                        _this.resultContent = `结论：${_this.mainRoleObj.propRoleVal}和${_this.secondRoleObj.propRoleVal}是完全相同的两张卡。`;
+                    } else if (_this.mainScore < _this.secondScore) {
+                        _this.resultContent = `结论：${_this.secondRoleObj.propRoleVal}的得分系数更高，所以选择使用<strong>${_this.secondRoleObj.propRoleVal}</strong>`;
+                    } else {
+                        _this.resultContent = `结论：${_this.mainRoleObj.propRoleVal}的得分系数更高，所以选择使用<strong>${_this.mainRoleObj.propRoleVal}</strong>`;
+                    }
+                    return
+                }
+                if (_this.mainScore == _this.secondScore) {
+                    if (ka1Sum > ka2Sum) {
+                        _this.resultContent = `结论：${_this.mainRoleObj.propRoleVal}和${_this.secondRoleObj.propRoleVal}的得分系数相同，
+                        但选择使用<strong>${_this.mainRoleObj.propRoleVal}</strong>，因为它的搭配之力分数更高。`;
+                    } else {
+                        _this.resultContent = `结论：${_this.mainRoleObj.propRoleVal}和${_this.secondRoleObj.propRoleVal}的得分系数相同，
+                        但选择使用<strong>${_this.secondRoleObj.propRoleVal}</strong>，因为它的搭配之力分数更高。`;
+                    }
+                    return
+                }
+                if (ka1Sum > ka2Sum && _this.mainScore > _this.secondScore) {
+                    _this.resultContent = `结论：${_this.mainRoleObj.propRoleVal}的搭配之力和得分系数均超过${_this.secondRoleObj.propRoleVal}，
+                    所以选择使用<strong>${_this.mainRoleObj.propRoleVal}</strong>`;
+                    return
+                }
+                if (ka1Sum < ka2Sum && _this.mainScore < _this.secondScore) {
+                    _this.resultContent = `结论：${_this.mainRoleObj.propRoleVal}的搭配之力和得分系数均小于${_this.secondRoleObj.propRoleVal}，
+                    所以选择使用<strong>${_this.secondRoleObj.propRoleVal}</strong>`;
+                    return
+                }
+
+                let xValue = chaVlue/xiShuChaValue;    // (卡2 系数跟分数和的乘积 - 卡1 系数跟分数和的乘积) 除以 (卡1得分系数 - 卡2得分系数) 的结果
+                console.log(`${xValue} = ${chaVlue} / ${xiShuChaValue}`);
+                _this.compareResult = Math.floor(xValue); // 向下取整
+                /**
+                 * ((卡1分数+卡1印象分+x)*卡1系数) > ((卡2分数+卡2印象分+x)*卡2系数)
+                 *
+                 * ka1value + x*卡1系数 > ka2value + x*卡2系数
+                 *
+                 *  x(卡1系数 - 卡2系数) > chaVlue
+                 *
+                 *  x > chaVlue / xiShuChaValue
+                 */
+                // if(_this.compareResult>0){
+                //     _this.resultContent= '当你的搭配+羁绊+美甲+妆容>' + _this.compareResult + '选择' +  _this.mainRoleObj.propRoleVal + '得分会更高'
+                // } else{
+                //     _this.resultContent= '当你的搭配+羁绊+美甲+妆容>' + Math.abs(_this.compareResult) + '选择' +  _this.secondRoleObj.propRoleVal + '得分会更高'
+                // }
+                // if(_this.compareResult<0){
+                //     resultContent= '当你的搭配+羁绊+美甲+妆容>' + _this.compareResult2 + '选择' +  secondRoleObj.propRoleVal + '得分会更高'
+                // }
+                console.log(_this.compareResult)
+                if (ka1Sum > ka2Sum && _this.mainScore < _this.secondScore) {
+                    _this.resultContent = _this.compareResult > 0 ? '当你的搭配+羁绊+美甲+妆容 > <strong>'+ _this.compareResult + '</strong>时,选择使用<strong>'
+                        + _this.secondRoleObj.propRoleVal + '</strong>得分会更高；否则使用<strong>'+
+                        _this.mainRoleObj.propRoleVal+ '</strong>的得分会更高。' : '无论什么情况，都是<strong>' + _this.secondRoleObj.propRoleVal + '</strong>的得分会更高。'
+                    return
+                }
+                if (ka1Sum < ka2Sum && _this.mainScore > _this.secondScore) {
+                    _this.resultContent = _this.compareResult > 0 ? '当你的搭配+羁绊+美甲+妆容 > <strong>'+ _this.compareResult + '</strong>时,选择使用<strong>'
+                        + _this.mainRoleObj.propRoleVal + '</strong>得分会更高；否则使用<strong>'+
+                        _this.secondRoleObj.propRoleVal+ '</strong>的得分会更高。' : '无论什么情况，都是<strong>' + _this.mainRoleObj.propRoleVal + '</strong>的得分会更高。'
+                }
+            }
+            else { // 在有主属性compareVal的情况下，心阶对比
+                _this.mainPower = 0;
+                _this.mainScore = 0;
+                _this.secondPower = 0;
+                _this.secondScore = 0;
+                _this.compareResult = 0;
+                _this.mainPower = _this.getPower(
+                    _this.mainRoleObj.propRoleKey,
+                    _this.mainRoleObj.roleLevelVal,
+                    _this.mainRoleObj.starVal,
+                    _this.mainRoleObj.isFusu,
+                    _this.mainRoleObj.collectVal,
+                    _this.compareVal);
+                _this.mainScore = _this.getScore(
+                    _this.mainPropRoleArr,
+                    _this.mainRoleObj.propRoleKey,
+                    1+_this.mainRoleObj.shadowVal,
+                    _this.mainRoleObj.shadowLevelVal,
+                    _this.mainRoleObj.passiveSkillVal1,
+                    _this.mainRoleObj.passiveSkillVal2,
+                    _this.mainRoleObj.passiveSkillVal3,
+                    _this.mainRoleObj.passiveSkillLevelVal1,
+                    _this.mainRoleObj.passiveSkillLevelVal2,
+                    _this.mainRoleObj.passiveSkillLevelVal3,
+                    _this.mainRoleObj.coreImpressionVal,
+                    _this.mainRoleObj.coreImpressionLevelVal,
+                    _this.mainRoleObj.coreImpressionTypeVal);
+                _this.secondPower = _this.getPower(
+                    _this.secondRoleObj.propRoleKey,
+                    _this.secondRoleObj.roleLevelVal,
+                    _this.secondRoleObj.starVal,
+                    _this.secondRoleObj.isFusu,
+                    _this.secondRoleObj.collectVal,
+                    _this.compareVal);
+                _this.secondScore = _this.getScore(
+                    _this.secondPropRoleArr,
+                    _this.secondRoleObj.propRoleKey,
+                    1+_this.secondRoleObj.shadowVal,
+                    _this.secondRoleObj.shadowLevelVal,
+                    _this.secondRoleObj.passiveSkillVal1,
+                    _this.secondRoleObj.passiveSkillVal2,
+                    _this.secondRoleObj.passiveSkillVal3,
+                    _this.secondRoleObj.passiveSkillLevelVal1,
+                    _this.secondRoleObj.passiveSkillLevelVal2,
+                    _this.secondRoleObj.passiveSkillLevelVal3,
+                    _this.secondRoleObj.coreImpressionVal,
+                    _this.secondRoleObj.coreImpressionLevelVal,
+                    _this.secondRoleObj.coreImpressionTypeVal);
+
+                if (_this.mainPropScore=='') _this.mainPropScore = 0;
+                if (_this.secondPropScore=='') _this.secondPropScore = 0;
+                _this.mainPropScore = parseInt(_this.mainPropScore);
+                _this.secondPropScore = parseInt(_this.secondPropScore);
+                _this.mainScore = parseFloat(_this.mainScore)
+                _this.secondScore = parseFloat(_this.secondScore)
+                console.log(_this.mainPower,_this.secondPower,
+                    _this.mainScore,_this.secondScore,
+                    _this.mainPropScore,_this.secondPropScore)
+
+                let ka1Sum = 0;
+                let ka2Sum = 0;
+                if (_this.mainPropKey == _this.compareVal) { // 如果卡属性和主属性一致，加上印象分，否则为无效印象分
+                    ka1Sum = _this.mainPower + _this.mainPropScore
+                } else {
+                    ka1Sum = _this.mainPower;
+                }
+                if (_this.secondPropKey == _this.compareVal) { // 如果卡属性和主属性一致，加上印象分，否则为无效印象分
+                    ka2Sum = _this.secondPower + _this.secondPropScore
+                } else {
+                    ka2Sum = _this.secondPower;
+                }
+                let ka1value = _this.mainScore * ka1Sum;
+                let ka2value = _this.secondScore * ka2Sum;
+                let chaVlue = ka2value - ka1value;  // 卡2 系数跟分数和的乘积 - 卡1 系数跟分数和的乘积
+                let xiShuChaValue = _this.mainScore - _this.secondScore; // 卡1得分系数 - 卡2得分系数
+
+                // 结论
+                if (ka1Sum == ka2Sum) {
+                    if (_this.mainScore == _this.secondScore) {
+                        _this.resultContent = `结论：${_this.mainRoleObj.propRoleVal}和${_this.secondRoleObj.propRoleVal}是完全相同的两张卡。`;
+                    } else if (_this.mainScore < _this.secondScore) {
+                        _this.resultContent = `结论：${_this.secondRoleObj.propRoleVal}的得分系数更高，所以选择使用<strong>${_this.secondRoleObj.propRoleVal}</strong>`;
+                    } else {
+                        _this.resultContent = `结论：${_this.mainRoleObj.propRoleVal}的得分系数更高，所以选择使用<strong>${_this.mainRoleObj.propRoleVal}</strong>`;
+                    }
+                    return
+                }
+                if (_this.mainScore == _this.secondScore) {
+                    if (ka1Sum > ka2Sum) {
+                        _this.resultContent = `结论：${_this.mainRoleObj.propRoleVal}和${_this.secondRoleObj.propRoleVal}的得分系数相同，
+                        但选择使用<strong>${_this.mainRoleObj.propRoleVal}</strong>，因为它的搭配之力分数更高。`;
+                    } else {
+                        _this.resultContent = `结论：${_this.mainRoleObj.propRoleVal}和${_this.secondRoleObj.propRoleVal}的得分系数相同，
+                        但选择使用<strong>${_this.secondRoleObj.propRoleVal}</strong>，因为它的搭配之力分数更高。`;
+                    }
+                    return
+                }
+                if (ka1Sum > ka2Sum && _this.mainScore > _this.secondScore) {
+                    _this.resultContent = `结论：${_this.mainRoleObj.propRoleVal}的搭配之力和得分系数均超过${_this.secondRoleObj.propRoleVal}，
+                    所以选择使用<strong>${_this.mainRoleObj.propRoleVal}</strong>`;
+                    return
+                }
+                if (ka1Sum < ka2Sum && _this.mainScore < _this.secondScore) {
+                    _this.resultContent = `结论：${_this.mainRoleObj.propRoleVal}的搭配之力和得分系数均小于${_this.secondRoleObj.propRoleVal}，
+                    所以选择使用<strong>${_this.secondRoleObj.propRoleVal}</strong>`;
+                    return
+                }
+
+                let xValue = chaVlue/xiShuChaValue
+                _this.compareResult = Math.floor(xValue);
+                /**
+                 * ((卡1分数+卡1印象分+x)*卡1系数) > ((卡2分数+卡2印象分+x)*卡2系数)
+                 *
+                 * ka1value + x*卡1系数 > ka2value + x*卡2系数
+                 *
+                 *  x(卡1系数 - 卡2系数) > chaVlue
+                 *
+                 *  x > chaVlue / xiShuChaValue
+                 */
+                console.log(_this.compareResult)
+                if (ka1Sum > ka2Sum && _this.mainScore < _this.secondScore) {
+                    _this.resultContent = _this.compareResult > 0 ? '当你的搭配+羁绊+美甲+妆容 > <strong>'+ _this.compareResult + '</strong>时,选择使用<strong>'
+                        + _this.secondRoleObj.propRoleVal + '</strong>得分会更高；否则使用<strong>'+
+                        _this.mainRoleObj.propRoleVal+ '</strong>的得分会更高。' : '无论什么情况，都是<strong>' + _this.secondRoleObj.propRoleVal + '</strong>的得分会更高。'
+                    return
+                }
+                if (ka1Sum < ka2Sum && _this.mainScore > _this.secondScore) {
+                    _this.resultContent = _this.compareResult > 0 ? '当你的搭配+羁绊+美甲+妆容 > <strong>'+ _this.compareResult + '</strong>时,选择使用<strong>'
+                        + _this.mainRoleObj.propRoleVal + '</strong>得分会更高；否则使用<strong>'+
+                        _this.secondRoleObj.propRoleVal+ '</strong>的得分会更高。' : '无论什么情况，都是<strong>' + _this.mainRoleObj.propRoleVal + '</strong>的得分会更高。'
+                }
+            }
+
         },
         getPower(roleKey, roleLevel, star, isFusu, collect, mainPropKey){//角色，等级，星级，是否复苏，馆藏，主属性卡
             let _this = this;
@@ -1173,7 +1378,7 @@ var app = new Vue({
         },
         getScore(propRoleArr,Char,Skill,SkillLevel,S1,S2,S3,S1L,S2L,S3L,YXRank,YXLevel,YXType){
             //角色，影子，影子等级，被动技能1,2,3，被动技能等级1,2,3，核心印象，印象深化，印象种类
-            console.log(Char,Skill,SkillLevel,S1,S2,S3,S1L,S2L,S3L,YXRank,YXLevel,YXType)//5 0 1 2 3 4 1 1 1 2 5 1
+            console.log(propRoleArr,Char,Skill,SkillLevel,S1,S2,S3,S1L,S2L,S3L,YXRank,YXLevel,YXType)//5 0 1 2 3 4 1 1 1 2 5 1
             let _this = this;
             var YXXINup,YXYINGup,Rank,Level,XINup,K = 0;
             var Multiply = [];

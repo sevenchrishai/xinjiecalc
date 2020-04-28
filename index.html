@@ -374,14 +374,29 @@
         </div>
     </div>
     <hr class="fgx">
-    <p align="center" id="BUTTONL">
-        <button class="button is-info" @click.prevent="compareScore" style="margin: 10px 0">对比</button>
-    </p>
+    <div>
+        <div class="radioGroup1" style="margin: 10px 0">
+            <button class="button" :class="compareBtnVal==1?'active':''" @click.prevent="compareScore(1)">卡牌对比</button>
+            <button class="button" :class="compareBtnVal==2?'active':''" @click.prevent="compareBtnVal=2">心阶对比 - {{propObj[compareVal]}}</button>
+        </div>
+        <div class="radioGroup-kka2" v-show="compareBtnVal == 2" >
+            <div>
+                <strong>请选择需要对比的属性：</strong>
+                <span v-for="(item,key,index) in propObj">
+                    <input type="radio" name="kkka2" :id="'sxx2'+key" :value="key" v-model="compareVal"
+                           @change=""/>
+                    <label :for="'sxx2'+key" :id="'labell2'+key">{{item}}</label>
+                </span>
+            </div>
+            <button class="button is-info" @click.prevent="compareScore(2)" style="margin-top: 10px">确定</button>
+        </div>
+    </div>
 
+    <hr class="fgx">
     <div id="Page4" class="m10" align="center">
         <!--卡牌1-->
         <div align="center">
-            <p style="font-size: 120%;font-weight: bold"><{{mainRoleObj.propRoleVal}}></p>
+            <p style="font-size: 120%;font-weight: bold">【{{mainRoleObj.propRoleVal}}】</p>
             <p>
                 {{mainRoleObj.roleLevelVal}}级{{starArr[mainRoleObj.starVal]}}，主动等级{{mainRoleObj.shadowLevelVal}}，被动等级
                 {{mainRoleObj.passiveSkillLevelVal1}}-{{mainRoleObj.passiveSkillLevelVal2}}-{{mainRoleObj.passiveSkillLevelVal3}}，
@@ -391,13 +406,20 @@
                 {{mainRoleObj.coreImpressionTypeVal==1?"心技印象":"影技印象"}}
             </p>
             <p>
-                搭配之力为{{mainPower}}，印象分为{{mainPropScore}}，得分系数为{{mainScore}}
+                {{compareBtnVal==2 ? propObj[compareVal]+ "-"  : ''}}搭配之力为{{mainPower}}，
+                <!--卡牌对比-->
+                <span v-if="compareBtnVal==1">印象分为{{mainPropScore}}</span>
+                <!--心阶对比-->
+                <span v-if="compareBtnVal==2">
+                    {{compareBtnVal==2 && mainPropKey==compareVal ? "印象分为" + mainPropScore : '无效'+"印象分为" + mainPropScore}}，
+                </span>
+                得分系数为{{mainScore}}
             </p>
         </div>
         <hr class="fgx">
         <!--卡牌2-->
         <div align="center">
-            <p style="font-size: 120%;font-weight: bold"><{{secondRoleObj.propRoleVal}}></p>
+            <p style="font-size: 120%;font-weight: bold">【{{secondRoleObj.propRoleVal}}】</p>
             <p>
                 {{secondRoleObj.roleLevelVal}}级{{starArr[secondRoleObj.starVal]}}，主动等级{{secondRoleObj.shadowLevelVal}}，被动等级
                 {{secondRoleObj.passiveSkillLevelVal1}}-{{secondRoleObj.passiveSkillLevelVal2}}-{{secondRoleObj.passiveSkillLevelVal3}}，
@@ -407,46 +429,18 @@
                 {{secondRoleObj.coreImpressionTypeVal==1?"心技印象":"影技印象"}}
             </p>
             <p>
-                搭配之力为{{secondPower}}，印象分为{{secondPropScore}}，得分系数为{{secondScore}}
+                {{compareBtnVal==2 ? propObj[compareVal]+ "-"  : ''}}搭配之力为{{secondPower}}，
+                <!--卡牌对比-->
+                <span v-if="compareBtnVal==1">印象分为{{secondPropScore}}</span>
+                <!--心阶对比-->
+                <span v-if="compareBtnVal==2">
+                    {{compareBtnVal==2 && secondPropKey==compareVal ? "印象分为" + secondPropScore : '无效'+"印象分为" + secondPropScore}}，
+                </span>
+                得分系数为{{secondScore}}
             </p>
         </div>
         <hr class="fgx">
-        <div v-if="(mainPower+mainPropScore) > (secondPower+secondPropScore) && mainScore > secondScore">
-            结论：{{mainRoleObj.propRoleVal}}的搭配之力和得分系数均超过{{secondRoleObj.propRoleVal}}，
-            所以选择使用{{mainRoleObj.propRoleVal}}
-        </div>
-        <div v-if="(mainPower+mainPropScore) < (secondPower+secondPropScore) && mainScore < secondScore">
-            结论：{{mainRoleObj.propRoleVal}}的搭配之力和得分系数均小于{{secondRoleObj.propRoleVal}}，
-            所以选择使用{{secondRoleObj.propRoleVal}}
-        </div>
-        <div v-if="(mainPower+mainPropScore) > (secondPower+secondPropScore) && mainScore < secondScore">
-            结论：{{compareResult>0?
-            '当你的搭配+羁绊+美甲+妆容>' + compareResult + '时,选择使用'+ secondRoleObj.propRoleVal + '得分会更高；否则使用'+
-            mainRoleObj.propRoleVal+ '的得分会更高。'
-            :'无论什么情况，都是'+secondRoleObj.propRoleVal+'的得分会更高。'}}
-        </div>
-        <div v-if="(mainPower+mainPropScore) < (secondPower+secondPropScore) && mainScore > secondScore">
-            结论：{{compareResult>0?
-            '当你的搭配+羁绊+美甲+妆容>' + compareResult + '时,选择使用'+ mainRoleObj.propRoleVal + '得分会更高；否则使用'+
-            secondRoleObj.propRoleVal+ '的得分会更高。'
-            :'无论什么情况，都是'+mainRoleObj.propRoleVal+'的得分会更高。'}}
-        </div>
-        <div v-if="(mainPower+mainPropScore) > (secondPower+secondPropScore) && mainScore == secondScore">
-            结论：{{mainRoleObj.propRoleVal}}和{{secondRoleObj.propRoleVal}}的得分系数相同，但选择使用
-            {{mainRoleObj.propRoleVal}}，因为它的搭配之力分数更高。
-        </div>
-        <div v-if="(mainPower+mainPropScore) < (secondPower+secondPropScore) && mainScore == secondScore">
-            结论：{{mainRoleObj.propRoleVal}}和{{secondRoleObj.propRoleVal}}的得分系数相同，但选择使用
-            {{secondRoleObj.propRoleVal}}，因为它的搭配之力分数更高。
-        </div>
-        <div v-if="(mainPower+mainPropScore) == (secondPower+secondPropScore) && mainScore > secondScore">
-            结论：{{mainRoleObj.propRoleVal}}的得分系数更高，所以选择使用{{mainRoleObj.propRoleVal}}
-        </div>
-        <div v-if="(mainPower+mainPropScore) == (secondPower+secondPropScore) && mainScore < secondScore">
-            结论：{{secondRoleObj.propRoleVal}}的得分系数更高，所以选择使用{{secondRoleObj.propRoleVal}}
-        </div>
-        <div v-if="(mainPower+mainPropScore) == (secondPower+secondPropScore) && mainScore == secondScore">
-            结论：{{mainRoleObj.propRoleVal}}和{{secondRoleObj.propRoleVal}}是完全相同的两张卡。
+        <div v-html="resultContent">
         </div>
         <hr class="fgx">
 
